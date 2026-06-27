@@ -1,0 +1,857 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Enrie John Edem — Infrastructure &amp; Systems Engineer</title>
+<meta name="description" content="Infrastructure &amp; Systems Engineer in Metro Manila, Philippines. Proxmox, LXC, VMware, Ansible &amp; Terraform automation, Linux administration, and full-stack internal tooling." />
+<meta name="theme-color" content="#0C1116" />
+
+<!-- Open Graph -->
+<meta property="og:type" content="website" />
+<meta property="og:title" content="Enrie John Edem — Infrastructure &amp; Systems Engineer" />
+<meta property="og:description" content="Linux administration, virtualization, and automation / IaC. Proxmox, Ansible, Terraform." />
+
+<!-- Favicon: amber/green monogram -->
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230C1116'/%3E%3Ctext x='16' y='22' font-family='monospace' font-size='17' font-weight='700' text-anchor='middle' fill='%2346E0A0'%3EE%3C/text%3E%3Ccircle cx='24.5' cy='8' r='2.4' fill='%23F3B54A'/%3E%3C/svg%3E" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;450;500;600&family=JetBrains+Mono:ital,wght@0,400;0,500;0,700;1,400&display=swap" rel="stylesheet" />
+
+<style>
+  /* ============================================================
+     TOKENS — operator console palette + type system
+     ============================================================ */
+  :root {
+    --bg:        #0C1116;
+    --panel:     #121A23;
+    --panel-2:   #182230;
+    --inset:     #0E151C;
+    --line:      rgba(125,148,178,0.16);
+    --line-2:    rgba(125,148,178,0.30);
+
+    --text:      #DDE4EC;
+    --muted:     #93A1B4;
+    --dim:       #6B7B8D;
+
+    /* semantic status colors — used the way an operator reads a board */
+    --ok:        #46E0A0;   /* healthy / available / primary signal */
+    --ok-dim:    rgba(70,224,160,0.12);
+    --warn:      #F3B54A;   /* warning / in-progress */
+    --warn-dim:  rgba(243,181,74,0.12);
+    --info:      #62A8FF;   /* links / info */
+    --crit:      #FF6B6B;   /* reserved */
+
+    /* syntax theme (the editor is part of the subject's world) */
+    --syn-key:   #8FB6FF;   /* attribute names */
+    --syn-str:   #6FD6A6;   /* strings */
+    --syn-kw:    #F3B54A;   /* resource / type keywords */
+    --syn-com:   #5E6E80;   /* comments */
+    --syn-num:   #C9A6FF;   /* numbers / booleans */
+    --syn-punc:  #7E8DA0;   /* punctuation */
+
+    --maxw: 1080px;
+    --radius: 12px;
+    --radius-sm: 8px;
+
+    --font-display: "Space Grotesk", system-ui, sans-serif;
+    --font-body: "Inter", system-ui, sans-serif;
+    --font-mono: "JetBrains Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+
+    --ease: cubic-bezier(.22,.61,.36,1);
+  }
+
+  * { box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-body);
+    font-size: 16px;
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    /* faint dashboard grid */
+    background-image:
+      linear-gradient(rgba(125,148,178,0.035) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(125,148,178,0.035) 1px, transparent 1px);
+    background-size: 46px 46px;
+    background-position: -1px -1px;
+  }
+
+  a { color: var(--info); text-decoration: none; }
+  a:hover { text-decoration: underline; text-underline-offset: 3px; }
+
+  ::selection { background: var(--ok-dim); color: var(--ok); }
+
+  :focus-visible {
+    outline: 2px solid var(--ok);
+    outline-offset: 3px;
+    border-radius: 3px;
+  }
+
+  .skip {
+    position: absolute; left: -9999px; top: 0;
+    background: var(--ok); color: #06231a; padding: .6rem 1rem;
+    font-family: var(--font-mono); font-weight: 700; z-index: 200; border-radius: 0 0 8px 0;
+  }
+  .skip:focus { left: 0; }
+
+  .wrap { max-width: var(--maxw); margin: 0 auto; padding-inline: clamp(1.25rem, 4vw, 2rem); }
+
+  /* ============================================================
+     TOP BAR — console chrome
+     ============================================================ */
+  .topbar {
+    position: sticky; top: 0; z-index: 100;
+    backdrop-filter: blur(10px);
+    background: color-mix(in srgb, var(--bg) 82%, transparent);
+    border-bottom: 1px solid var(--line);
+  }
+  .topbar__row {
+    display: flex; align-items: center; justify-content: space-between;
+    height: 58px;
+    max-width: var(--maxw); margin: 0 auto; padding-inline: clamp(1.25rem, 4vw, 2rem);
+  }
+  .brand {
+    display: inline-flex; align-items: center; gap: .55rem;
+    font-family: var(--font-mono); font-weight: 700; font-size: .9rem;
+    color: var(--text); letter-spacing: .2px;
+  }
+  .brand:hover { text-decoration: none; }
+  .dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: var(--ok); box-shadow: 0 0 0 0 var(--ok);
+    animation: pulse 2.6s var(--ease) infinite;
+  }
+  @keyframes pulse {
+    0%   { box-shadow: 0 0 0 0 rgba(70,224,160,0.45); }
+    70%  { box-shadow: 0 0 0 7px rgba(70,224,160,0); }
+    100% { box-shadow: 0 0 0 0 rgba(70,224,160,0); }
+  }
+  .nav { display: flex; align-items: center; gap: 1.4rem; }
+  .nav a {
+    font-family: var(--font-mono); font-size: .82rem; color: var(--muted);
+    letter-spacing: .3px; position: relative; padding: .3rem 0;
+  }
+  .nav a:hover { color: var(--text); text-decoration: none; }
+  .nav a::after {
+    content: ""; position: absolute; left: 0; right: 100%; bottom: -2px; height: 2px;
+    background: var(--ok); transition: right .28s var(--ease);
+  }
+  .nav a:hover::after, .nav a.is-active::after { right: 0; }
+  .nav a.is-active { color: var(--text); }
+
+  .menu-btn {
+    display: none; background: var(--panel); border: 1px solid var(--line);
+    color: var(--text); width: 40px; height: 36px; border-radius: var(--radius-sm);
+    font-family: var(--font-mono); cursor: pointer; align-items: center; justify-content: center;
+  }
+  .menu-btn:hover { border-color: var(--line-2); }
+
+  /* ============================================================
+     SECTION SCAFFOLD
+     ============================================================ */
+  section { padding-block: clamp(3.6rem, 8vw, 6.5rem); }
+  .eyebrow {
+    font-family: var(--font-mono); font-size: .8rem; color: var(--dim);
+    letter-spacing: .5px; margin: 0 0 1.4rem;
+    display: flex; align-items: baseline; gap: .6rem;
+  }
+  .eyebrow b { color: var(--ok); font-weight: 500; }
+  .eyebrow .rule { flex: 1; height: 1px; background: var(--line); transform: translateY(-4px); }
+
+  h2.h {
+    font-family: var(--font-display); font-weight: 600;
+    font-size: clamp(1.5rem, 3.6vw, 2.1rem); line-height: 1.1;
+    margin: 0 0 1.6rem; letter-spacing: -.01em;
+  }
+  p.lead { color: var(--muted); max-width: 64ch; margin: 0 0 1rem; }
+
+  /* ============================================================
+     HERO
+     ============================================================ */
+  .hero { padding-top: clamp(3rem, 7vw, 5.5rem); padding-bottom: clamp(2.5rem, 6vw, 4rem); }
+  .hero__role {
+    font-family: var(--font-mono); font-size: clamp(.8rem,2.2vw,.92rem);
+    color: var(--ok); letter-spacing: .5px; margin: 0 0 1rem;
+  }
+  .hero__name {
+    font-family: var(--font-display); font-weight: 700;
+    font-size: clamp(2.5rem, 8vw, 4.8rem); line-height: .98;
+    letter-spacing: -.02em; margin: 0 0 1.2rem;
+  }
+  .hero__name .em { color: var(--text); }
+  .hero__tag {
+    font-size: clamp(1rem, 2.4vw, 1.18rem); color: var(--muted);
+    max-width: 60ch; margin: 0 0 2.2rem;
+  }
+  .hero__tag strong { color: var(--text); font-weight: 600; }
+
+  /* the signature: a declarative resource block */
+  .tf {
+    background: var(--inset);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    overflow: hidden;
+    box-shadow: 0 24px 60px -34px rgba(0,0,0,.8);
+    max-width: 720px;
+  }
+  .tf__bar {
+    display: flex; align-items: center; gap: .55rem;
+    padding: .7rem 1rem; border-bottom: 1px solid var(--line);
+    background: var(--panel);
+  }
+  .tf__tux { display: inline-flex; margin-right: .25rem; }
+  .tf__tux svg { width: 15px; height: 16px; display: block; }
+  .tf__cmd { font-family: var(--font-mono); font-size: .78rem; color: var(--muted); letter-spacing: .1px; white-space: nowrap; }
+  .tf__cmd .p-user { color: var(--ok); }
+  .tf__cmd .p-host { color: var(--info); }
+  .tf__cmd .p-dim  { color: var(--dim); }
+  .tf__cmd .p-file { color: var(--text); }
+  .tf__pre {
+    margin: 0; padding: 1.15rem 1.25rem 1.35rem;
+    font-family: var(--font-mono); font-size: clamp(.74rem, 1.7vw, .86rem);
+    line-height: 1.85; color: var(--text);
+    overflow-x: auto; white-space: pre;
+    counter-reset: ln;
+  }
+  .tf__pre .line { display: block; }
+  .ind { padding-left: 2ch; }
+  .ind2 { padding-left: 4ch; }
+  .k   { color: var(--syn-key); }
+  .s   { color: var(--syn-str); }
+  .kw  { color: var(--syn-kw); }
+  .c   { color: var(--syn-com); font-style: italic; }
+  .num { color: var(--syn-num); }
+  .pu  { color: var(--syn-punc); }
+  .cur {
+    display: inline-block; width: .58ch; height: 1.05em; transform: translateY(.18em);
+    background: var(--ok); margin-left: 2px;
+    animation: blink 1.1s steps(1) infinite;
+  }
+  @keyframes blink { 50% { opacity: 0; } }
+
+  /* staged reveal only when motion is allowed AND js is present */
+  .tf.anim .line { opacity: 0; transform: translateY(3px); }
+  .tf.anim .line.in { opacity: 1; transform: none; transition: opacity .26s var(--ease), transform .26s var(--ease); }
+
+  .hero__cta { display: flex; flex-wrap: wrap; gap: .75rem; margin-top: 2rem; align-items: center; }
+  .btn {
+    font-family: var(--font-mono); font-size: .82rem; font-weight: 500;
+    padding: .68rem 1.1rem; border-radius: var(--radius-sm);
+    border: 1px solid var(--line-2); color: var(--text); background: var(--panel);
+    display: inline-flex; align-items: center; gap: .5rem; cursor: pointer;
+    transition: border-color .2s var(--ease), background .2s var(--ease), transform .2s var(--ease);
+  }
+  .btn:hover { text-decoration: none; transform: translateY(-1px); border-color: var(--line-2); background: var(--panel-2); }
+  .btn--primary { background: var(--ok-dim); border-color: rgba(70,224,160,.45); color: var(--ok); }
+  .btn--primary:hover { background: rgba(70,224,160,.18); }
+  .btn svg { width: 15px; height: 15px; }
+
+  .status {
+    margin-left: auto; font-family: var(--font-mono); font-size: .8rem;
+    color: var(--ok); display: inline-flex; align-items: center; gap: .5rem;
+    padding: .5rem .8rem; border: 1px solid rgba(70,224,160,.28); border-radius: 999px;
+    background: var(--ok-dim);
+  }
+
+  /* ============================================================
+     METRIC STRIP — Grafana-style stat panels
+     ============================================================ */
+  .metrics {
+    display: grid; grid-template-columns: repeat(5, 1fr); gap: 1px;
+    background: var(--line); border: 1px solid var(--line);
+    border-radius: var(--radius); overflow: hidden;
+  }
+  .metric { background: var(--panel); padding: 1.25rem 1.1rem; }
+  .metric__label {
+    font-family: var(--font-mono); font-size: .68rem; color: var(--dim);
+    letter-spacing: .4px; text-transform: uppercase; margin-bottom: .5rem;
+  }
+  .metric__val {
+    font-family: var(--font-display); font-weight: 600; font-size: clamp(1.5rem, 3.4vw, 2.1rem);
+    color: var(--ok); line-height: 1; letter-spacing: -.01em;
+  }
+  .metric__val span { font-size: .55em; color: var(--muted); margin-left: .12em; font-family: var(--font-mono); font-weight: 400; }
+
+  /* ============================================================
+     STACK — competency panels
+     ============================================================ */
+  .panels { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+  .panel {
+    background: var(--panel); border: 1px solid var(--line);
+    border-radius: var(--radius); padding: 1.4rem 1.4rem 1.5rem;
+    transition: border-color .22s var(--ease), transform .22s var(--ease);
+  }
+  .panel:hover { border-color: var(--line-2); transform: translateY(-2px); }
+  .panel__head {
+    display: flex; align-items: center; gap: .55rem; margin-bottom: 1.1rem;
+    font-family: var(--font-mono); font-size: .82rem; color: var(--text); letter-spacing: .2px;
+  }
+  .panel__head .pdot { width: 7px; height: 7px; border-radius: 50%; background: var(--ok); }
+  .tags { display: flex; flex-wrap: wrap; gap: .45rem; }
+  .tag {
+    display: inline-flex; align-items: center; gap: .42rem;
+    font-family: var(--font-mono); font-size: .73rem; color: var(--muted);
+    padding: .32rem .62rem; border: 1px solid var(--line); border-radius: 6px;
+    background: var(--inset); transition: color .18s var(--ease), border-color .18s var(--ease);
+  }
+  /* brand logos: muted monochrome at rest, true brand color on hover */
+  .tag .logo { position: relative; width: 14px; height: 14px; flex: 0 0 auto; }
+  .tag .logo img { position: absolute; inset: 0; width: 14px; height: 14px; transition: opacity .2s var(--ease); }
+  .tag .logo .c { opacity: 0; }
+  .tag:hover .logo .c { opacity: 1; }
+  .tag:hover .logo .m { opacity: 0; }
+  /* line glyphs: muted at rest, lift to signal-green on hover */
+  .tag .gly { width: 14px; height: 14px; flex: 0 0 auto; color: var(--muted); display: inline-flex; transition: color .2s var(--ease); }
+  .tag .gly svg { width: 14px; height: 14px; display: block; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+  .tag:hover .gly { color: var(--ok); }
+  .panel:hover .tag { border-color: var(--line-2); }
+
+  /* ============================================================
+     EXPERIENCE — timeline
+     ============================================================ */
+  .timeline { position: relative; padding-left: 1.6rem; }
+  .timeline::before {
+    content: ""; position: absolute; left: 5px; top: 6px; bottom: 6px; width: 1px;
+    background: linear-gradient(var(--line-2), var(--line) 60%, transparent);
+  }
+  .job { position: relative; padding-bottom: 2.4rem; }
+  .job:last-child { padding-bottom: 0; }
+  .job::before {
+    content: ""; position: absolute; left: -1.6rem; top: 6px; width: 11px; height: 11px;
+    border-radius: 50%; background: var(--bg); border: 2px solid var(--ok);
+  }
+  .job__meta {
+    font-family: var(--font-mono); font-size: .76rem; color: var(--warn);
+    letter-spacing: .3px; margin-bottom: .35rem;
+  }
+  .job__title { font-family: var(--font-display); font-weight: 600; font-size: 1.18rem; margin: 0 0 .15rem; }
+  .job__org { color: var(--muted); font-size: .94rem; margin: 0 0 .9rem; }
+  .job ul { margin: 0; padding: 0; list-style: none; display: grid; gap: .55rem; }
+  .job li { position: relative; padding-left: 1.3rem; color: var(--muted); font-size: .95rem; }
+  .job li::before {
+    content: "→"; position: absolute; left: 0; top: 0; color: var(--ok); font-family: var(--font-mono);
+  }
+  .job li b { color: var(--text); font-weight: 600; }
+
+  /* ============================================================
+     PROJECTS — dashboard tiles
+     ============================================================ */
+  .grid2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; }
+  .proj {
+    background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius);
+    padding: 1.4rem 1.5rem 1.5rem; display: flex; flex-direction: column;
+    transition: border-color .22s var(--ease), transform .22s var(--ease);
+  }
+  .proj:hover { border-color: var(--line-2); transform: translateY(-2px); }
+  .proj__top { display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem; margin-bottom: .7rem; }
+  .proj__name { font-family: var(--font-display); font-weight: 600; font-size: 1.12rem; margin: 0; }
+  .chip {
+    font-family: var(--font-mono); font-size: .72rem; font-weight: 500; white-space: nowrap;
+    color: var(--ok); background: var(--ok-dim); border: 1px solid rgba(70,224,160,.3);
+    padding: .26rem .55rem; border-radius: 6px;
+  }
+  .chip--warn { color: var(--warn); background: var(--warn-dim); border-color: rgba(243,181,74,.3); }
+  .proj__desc { color: var(--muted); font-size: .94rem; margin: 0 0 1.1rem; flex: 1; }
+  .proj .tags { margin-top: auto; }
+
+  /* ============================================================
+     CREDENTIALS — certs + education
+     ============================================================ */
+  .cols { display: grid; grid-template-columns: 1.15fr .85fr; gap: 2.4rem; }
+  .sub { font-family: var(--font-mono); font-size: .76rem; color: var(--dim); letter-spacing: .4px; text-transform: uppercase; margin: 0 0 1.1rem; }
+  .clist { margin: 0; padding: 0; list-style: none; display: grid; gap: .15rem; }
+  .crow {
+    display: flex; align-items: baseline; justify-content: space-between; gap: 1rem;
+    padding: .7rem 0; border-bottom: 1px solid var(--line);
+  }
+  .crow:last-child { border-bottom: 0; }
+  .crow__name { color: var(--text); font-size: .95rem; }
+  .crow__name .badge {
+    font-family: var(--font-mono); font-size: .66rem; color: var(--warn);
+    border: 1px solid rgba(243,181,74,.34); background: var(--warn-dim);
+    padding: .1rem .4rem; border-radius: 5px; margin-left: .5rem; vertical-align: middle;
+  }
+  .crow__date { font-family: var(--font-mono); font-size: .76rem; color: var(--dim); white-space: nowrap; }
+  .edu {
+    background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius);
+    padding: 1.4rem 1.5rem;
+  }
+  .edu__deg { font-family: var(--font-display); font-weight: 600; font-size: 1.05rem; margin: 0 0 .3rem; }
+  .edu__school { color: var(--muted); font-size: .92rem; margin: 0 0 .6rem; }
+  .edu__date { font-family: var(--font-mono); font-size: .76rem; color: var(--ok); }
+  .edu__note { margin-top: 1.1rem; padding-top: 1.1rem; border-top: 1px solid var(--line); font-size: .9rem; color: var(--muted); }
+
+  /* ============================================================
+     CONTACT + FOOTER
+     ============================================================ */
+  .contact {
+    border: 1px solid var(--line); border-radius: var(--radius);
+    background:
+      radial-gradient(120% 140% at 100% 0%, rgba(70,224,160,0.06), transparent 55%),
+      var(--panel);
+    padding: clamp(1.8rem, 5vw, 3rem);
+  }
+  .contact h2 { font-family: var(--font-display); font-weight: 600; font-size: clamp(1.6rem,4vw,2.3rem); margin: 0 0 .6rem; letter-spacing: -.01em; }
+  .contact p { color: var(--muted); max-width: 52ch; margin: 0 0 1.8rem; }
+  .clinks { display: flex; flex-wrap: wrap; gap: .7rem; }
+
+  footer { border-top: 1px solid var(--line); margin-top: 3rem; }
+  .statusbar {
+    display: flex; flex-wrap: wrap; align-items: center; gap: 0;
+    font-family: var(--font-mono); font-size: .72rem; color: var(--muted);
+    border-bottom: 1px solid var(--line);
+  }
+  .statusbar .seg {
+    display: inline-flex; align-items: center; gap: .4rem;
+    padding: .55rem .85rem; border-right: 1px solid var(--line);
+  }
+  .statusbar .seg b { color: var(--text); font-weight: 500; }
+  .statusbar .seg--ok { background: var(--ok-dim); color: var(--ok); }
+  .statusbar .sdot { width: 7px; height: 7px; border-radius: 50%; background: var(--ok); }
+  .statusbar .seg--end { margin-left: auto; border-right: 0; color: var(--dim); }
+  .foot {
+    display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1rem;
+    padding-block: 1.6rem; font-family: var(--font-mono); font-size: .76rem; color: var(--dim);
+  }
+  .foot a { color: var(--muted); }
+
+  /* reveal-on-scroll */
+  .reveal { opacity: 0; transform: translateY(14px); }
+  .reveal.in { opacity: 1; transform: none; transition: opacity .55s var(--ease), transform .55s var(--ease); }
+  @media (prefers-reduced-motion: reduce) {
+    .reveal, .tf.anim .line { opacity: 1 !important; transform: none !important; }
+    .dot, .cur { animation: none !important; }
+  }
+
+  /* ============================================================
+     RESPONSIVE
+     ============================================================ */
+  @media (max-width: 860px) {
+    .metrics { grid-template-columns: repeat(2, 1fr); }
+    .panels { grid-template-columns: 1fr; }
+    .grid2 { grid-template-columns: 1fr; }
+    .cols { grid-template-columns: 1fr; gap: 2rem; }
+  }
+  @media (max-width: 620px) {
+    .nav { display: none; }
+    .nav.open {
+      display: flex; position: absolute; top: 58px; left: 0; right: 0;
+      flex-direction: column; align-items: flex-start; gap: .2rem;
+      background: var(--panel); border-bottom: 1px solid var(--line); padding: .6rem 1.25rem 1rem;
+    }
+    .nav.open a { padding: .5rem 0; width: 100%; }
+    .menu-btn { display: inline-flex; }
+    .metrics { grid-template-columns: 1fr 1fr; }
+    .status { margin-left: 0; }
+    .hero__cta { gap: .6rem; }
+  }
+</style>
+</head>
+<body>
+<a class="skip" href="#about">Skip to content</a>
+
+<header class="topbar">
+  <div class="topbar__row">
+    <a class="brand" href="#top"><span class="dot" aria-hidden="true"></span>enrie.sys</a>
+    <nav class="nav" id="nav" aria-label="Primary">
+      <a href="#about">about</a>
+      <a href="#stack">stack</a>
+      <a href="#experience">experience</a>
+      <a href="#projects">projects</a>
+      <a href="#credentials">credentials</a>
+      <a href="#contact">contact</a>
+    </nav>
+    <button class="menu-btn" id="menuBtn" aria-label="Toggle menu" aria-expanded="false" aria-controls="nav">≡</button>
+  </div>
+</header>
+
+<main id="top">
+
+  <!-- ===================== HERO ===================== -->
+  <section class="hero" aria-label="Introduction">
+    <div class="wrap">
+      <p class="hero__role">// infrastructure &amp; systems engineer</p>
+      <h1 class="hero__name">Enrie&nbsp;John <span class="em">Edem</span></h1>
+      <p class="hero__tag">I build and run the layer everything else depends on — <strong>Linux infrastructure, virtualization, and automation</strong> — and write the internal tooling that keeps it observable.</p>
+
+      <div class="tf anim" id="tf" role="img" aria-label="A Terraform resource block declaring the engineer's role, location, focus areas, and technology stack.">
+        <div class="tf__bar">
+          <span class="tf__tux" aria-hidden="true">
+            <svg viewBox="0 0 22 24" xmlns="http://www.w3.org/2000/svg">
+              <ellipse cx="7.6" cy="20.4" rx="2.6" ry="1.2" fill="#F3B54A"/>
+              <ellipse cx="14.4" cy="20.4" rx="2.6" ry="1.2" fill="#F3B54A"/>
+              <path d="M11 1.6C7.7 1.6 5.2 4.3 5.2 8c0 3-.6 4.6-1 6.8-.3 1.8 1 4.8 3.2 4.8h7.2c2.2 0 3.5-3 3.2-4.8-.4-2.2-1-3.8-1-6.8 0-3.7-2.5-6.4-5.8-6.4Z" fill="#1c1c1c"/>
+              <ellipse cx="11" cy="13.6" rx="3.6" ry="5.3" fill="#ECEFF3"/>
+              <circle cx="9.2" cy="6.7" r="1.1" fill="#fff"/>
+              <circle cx="12.8" cy="6.7" r="1.1" fill="#fff"/>
+              <circle cx="9.4" cy="6.9" r=".5" fill="#111"/>
+              <circle cx="12.6" cy="6.9" r=".5" fill="#111"/>
+              <path d="M9.4 7.9h3.2L11 9.7z" fill="#F3B54A"/>
+            </svg>
+          </span>
+          <span class="tf__cmd"><span class="p-user">enrie@infra</span><span class="p-dim">:</span><span class="p-host">~/infra</span><span class="p-dim">$</span> cat <span class="p-file">enrie.tf</span></span>
+        </div>
+<pre class="tf__pre" aria-hidden="true"><span class="line"><span class="c"># declared once, converged everywhere</span></span>
+<span class="line"><span class="kw">resource</span> <span class="s">"engineer"</span> <span class="s">"enrie_john_edem"</span> <span class="pu">{</span></span>
+<span class="line ind"><span class="k">role</span>       <span class="pu">=</span> <span class="s">"Infrastructure &amp; Systems Engineer"</span></span>
+<span class="line ind"><span class="k">location</span>   <span class="pu">=</span> <span class="s">"Metro Manila, Philippines"</span></span>
+<span class="line ind"><span class="k">experience</span> <span class="pu">=</span> <span class="s">"3+ years"</span></span>
+<span class="line ind"><span class="k">status</span>     <span class="pu">=</span> <span class="s">"available"</span>   <span class="c"># remote &amp; relocation</span></span>
+<span class="line"></span>
+<span class="line ind"><span class="k">focus</span> <span class="pu">= [</span></span>
+<span class="line ind2"><span class="s">"linux administration"</span><span class="pu">,</span></span>
+<span class="line ind2"><span class="s">"virtualization"</span><span class="pu">,</span></span>
+<span class="line ind2"><span class="s">"automation / iac"</span><span class="pu">,</span></span>
+<span class="line ind"><span class="pu">]</span></span>
+<span class="line"></span>
+<span class="line ind"><span class="kw">stack</span> <span class="pu">{</span></span>
+<span class="line ind2"><span class="k">virtualization</span> <span class="pu">= [</span><span class="s">"Proxmox VE"</span><span class="pu">,</span> <span class="s">"VMware"</span><span class="pu">,</span> <span class="s">"KVM"</span><span class="pu">,</span> <span class="s">"LXC"</span><span class="pu">]</span></span>
+<span class="line ind2"><span class="k">automation</span>     <span class="pu">= [</span><span class="s">"Ansible"</span><span class="pu">,</span> <span class="s">"Terraform"</span><span class="pu">,</span> <span class="s">"Bash"</span><span class="pu">,</span> <span class="s">"Python"</span><span class="pu">]</span></span>
+<span class="line ind2"><span class="k">development</span>    <span class="pu">= [</span><span class="s">"Laravel"</span><span class="pu">,</span> <span class="s">"Vue 3"</span><span class="pu">,</span> <span class="s">"Spring Boot"</span><span class="pu">]</span></span>
+<span class="line ind"><span class="pu">}</span></span>
+<span class="line"><span class="pu">}</span><span class="cur" aria-hidden="true"></span></span></pre>
+      </div>
+
+      <div class="hero__cta">
+        <a class="btn btn--primary" href="#contact">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 6h16v12H4z"/><path d="m4 7 8 6 8-6"/></svg>
+          Get in touch
+        </a>
+        <a class="btn" href="https://www.linkedin.com/in/enrie-johnedem-6073a8223" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6.94 5a2 2 0 1 1-4 0 2 2 0 0 1 4 0ZM3.5 8.5h3v12h-3v-12Zm6 0h2.9v1.64h.04c.4-.76 1.4-1.56 2.88-1.56 3.08 0 3.65 2.03 3.65 4.67v7.25h-3v-6.43c0-1.53-.03-3.5-2.13-3.5-2.13 0-2.46 1.66-2.46 3.39v6.54h-3v-12Z"/></svg>
+          LinkedIn
+        </a>
+        <a class="btn" href="Enrie_John_Edem.pdf" download>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 3v12m0 0 4-4m-4 4-4-4"/><path d="M5 21h14"/></svg>
+          Résumé
+        </a>
+        <span class="status"><span class="dot" aria-hidden="true"></span>open to work</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== ABOUT ===================== -->
+  <section id="about" aria-labelledby="about-h">
+    <div class="wrap reveal">
+      <p class="eyebrow"><b>// 01</b> about<span class="rule" aria-hidden="true"></span></p>
+      <h2 class="h" id="about-h">Operations is where I'm most at home.</h2>
+      <p class="lead">For 3+ years at a Yazaki Japan affiliate I've owned the production server estate behind daily operations for ~700 staff — and as a one-team IT shop, that means the whole stack: bare-metal and Linux administration up through the applications running on it. I provision and harden virtualized infrastructure, replace manual builds with declarative automation, and ship the internal web tools and scripts that keep it reliable and observable.</p>
+      <p class="lead">Operator first, with a working developer's hands — I write the Laravel/Vue tooling and Bash/Python automation myself rather than waiting on someone else to. I prefer systems that explain themselves: parameterized templates, reproducible provisioning, and dashboards over guesswork. Currently extending that into cloud, working toward AWS Certified Cloud Practitioner with Terraform Associate and CKA next.</p>
+
+      <div class="metrics" role="list" aria-label="Operational highlights" style="margin-top:2.2rem">
+        <div class="metric" role="listitem"><div class="metric__label">experience</div><div class="metric__val">3+<span>yrs</span></div></div>
+        <div class="metric" role="listitem"><div class="metric__label">proxmox hosts</div><div class="metric__val">7</div></div>
+        <div class="metric" role="listitem"><div class="metric__label">LXC containers</div><div class="metric__val">24</div></div>
+        <div class="metric" role="listitem"><div class="metric__label">provisioning time</div><div class="metric__val">−93<span>%</span></div></div>
+        <div class="metric" role="listitem"><div class="metric__label">staff supported</div><div class="metric__val">~700</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== STACK ===================== -->
+  <section id="stack" aria-labelledby="stack-h">
+    <div class="wrap reveal">
+      <p class="eyebrow"><b>// 02</b> stack<span class="rule" aria-hidden="true"></span></p>
+      <h2 class="h" id="stack-h">What I run on.</h2>
+      <div class="panels">
+        <div class="panel">
+          <div class="panel__head"><span class="pdot" aria-hidden="true"></span>virtualization &amp; infra</div>
+          <div class="tags">
+            <span class="tag"><span class="logo"><img class="m" src="https://cdn.simpleicons.org/proxmox/8a98ab" alt="" loading="lazy" onerror="this.parentElement.remove()"><img class="c" src="https://cdn.simpleicons.org/proxmox" alt="" loading="lazy" onerror="this.remove()"></span>Proxmox VE</span>
+            <span class="tag"><span class="gly" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="4.5" rx="1"/><rect x="3" y="9.8" width="18" height="4.5" rx="1"/><rect x="3" y="15.6" width="18" height="4.4" rx="1"/></svg></span>LXC</span>
+            <span class="tag"><span class="gly" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="6" y="6" width="12" height="12" rx="1.5"/><rect x="9.5" y="9.5" width="5" height="5" rx=".5"/><path d="M9 3v2M15 3v2M9 19v2M15 19v2M3 9h2M3 15h2M19 9h2M19 15h2"/></svg></span>KVM</span>
+            <span class="tag"><span class="logo"><img class="m" src="https://cdn.simpleicons.org/vmware/8a98ab" alt="" loading="lazy" onerror="this.parentElement.remove()"><img class="c" src="https://cdn.simpleicons.org/vmware/0091da" alt="" loading="lazy" onerror="this.remove()"></span>VMware</span>
+            <span class="tag"><span class="logo"><img class="m" src="https://cdn.simpleicons.org/docker/8a98ab" alt="" loading="lazy" onerror="this.parentElement.remove()"><img class="c" src="https://cdn.simpleicons.org/docker" alt="" loading="lazy" onerror="this.remove()"></span>Docker</span>
+            <span class="tag"><span class="gly" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3" y="12" width="18" height="7" rx="2"/><circle cx="7" cy="15.5" r="1"/><path d="M12 3v6m0 0 2.5-2.5M12 9 9.5 6.5"/></svg></span>Backup &amp; recovery</span>
+            <span class="tag"><span class="gly" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3l7 3v5c0 4.4-3 7.4-7 8.8C8 18.4 5 15.4 5 11V6z"/><path d="M9.3 11.5l1.8 1.8 3.6-3.8"/></svg></span>Linux hardening</span>
+          </div>
+        </div>
+        <div class="panel">
+          <div class="panel__head"><span class="pdot" aria-hidden="true"></span>automation &amp; IaC</div>
+          <div class="tags">
+            <span class="tag"><span class="logo"><img class="m" src="https://cdn.simpleicons.org/ansible/8a98ab" alt="" loading="lazy" onerror="this.parentElement.remove()"><img class="c" src="https://cdn.simpleicons.org/ansible/ffffff" alt="" loading="lazy" onerror="this.remove()"></span>Ansible</span>
+            <span class="tag"><span class="logo"><img class="m" src="https://cdn.simpleicons.org/terraform/8a98ab" alt="" loading="lazy" onerror="this.parentElement.remove()"><img class="c" src="https://cdn.simpleicons.org/terraform" alt="" loading="lazy" onerror="this.remove()"></span>Terraform</span>
+            <span class="tag"><span class="logo"><img class="m" src="https://cdn.simpleicons.org/gnubash/8a98ab" alt="" loading="lazy" onerror="this.parentElement.remove()"><img class="c" src="https://cdn.simpleicons.org/gnubash" alt="" loading="lazy" onerror="this.remove()"></span>Bash</span>
+            <span class="tag"><span class="logo"><img class="m" src="https://cdn.simpleicons.org/python/8a98ab" alt="" loading="lazy" onerror="this.parentElement.remove()"><img class="c" src="https://cdn.simpleicons.org/python" alt="" loading="lazy" onerror="this.remove()"></span>Python</span>
+            <span class="tag"><span class="gly" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="6" cy="6" r="2.2"/><circle cx="6" cy="18" r="2.2"/><circle cx="18" cy="12" r="2.2"/><path d="M6 8.2v7.6"/><path d="M8.1 6.2h3.9a3 3 0 0 1 3 3v1"/></svg></span>CI-style deploys</span>
+            <span class="tag"><span class="gly" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="6" rx="1.5"/><rect x="3" y="14" width="18" height="6" rx="1.5"/><path d="M6.5 7h.01M6.5 17h.01"/></svg></span>Provisioning</span>
+          </div>
+        </div>
+        <div class="panel">
+          <div class="panel__head"><span class="pdot" aria-hidden="true"></span>operating systems</div>
+          <div class="tags">
+            <span class="tag"><span class="logo"><img class="m" src="https://cdn.simpleicons.org/almalinux/8a98ab" alt="" loading="lazy" onerror="this.parentElement.remove()"><img class="c" src="https://cdn.simpleicons.org/almalinux/3a8fd4" alt="" loading="lazy" onerror="this.remove()"></span>AlmaLinux</span>
+            <span class="tag"><span class="logo"><img class="m" src="https://cdn.simpleicons.org/ubuntu/8a98ab" alt="" loading="lazy" onerror="this.parentElement.remove()"><img class="c" src="https://cdn.simpleicons.org/ubuntu" alt="" loading="lazy" onerror="this.remove()"></span>Ubuntu Server</span>
+            <span class="tag"><span class="logo"><img class="m" src="https://cdn.simpleicons.org/debian/8a98ab" alt="" loading="lazy" onerror="this.parentElement.remove()"><img class="c" src="https://cdn.simpleicons.org/debian" alt="" loading="lazy" onerror="this.remove()"></span>Debian</span>
+            <span class="tag"><span class="gly" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3.5" y="3.5" width="7.5" height="7.5" rx=".6"/><rect x="13" y="3.5" width="7.5" height="7.5" rx=".6"/><rect x="3.5" y="13" width="7.5" height="7.5" rx=".6"/><rect x="13" y="13" width="7.5" height="7.5" rx=".6"/></svg></span>Windows Server</span>
+            <span class="tag"><span class="logo"><img class="m" src="https://cdn.simpleicons.org/redhat/8a98ab" alt="" loading="lazy" onerror="this.parentElement.remove()"><img class="c" src="https://cdn.simpleicons.org/redhat" alt="" loading="lazy" onerror="this.remove()"></span>RHEL</span>
+          </div>
+        </div>
+        <div class="panel">
+          <div class="panel__head"><span class="pdot" aria-hidden="true"></span>development</div>
+          <div class="tags">
+            <span class="tag"><span class="logo"><img class="m" src="https://cdn.simpleicons.org/laravel/8a98ab" alt="" loading="lazy" onerror="this.parentElement.remove()"><img class="c" src="https://cdn.simpleicons.org/laravel" alt="" loading="lazy" onerror="this.remove()"></span>Laravel</span>
+            <span class="tag"><span class="logo"><img class="m" src="https://cdn.simpleicons.org/vuedotjs/8a98ab" alt="" loading="lazy" onerror="this.parentElement.remove()"><img class="c" src="https://cdn.simpleicons.org/vuedotjs" alt="" loading="lazy" onerror="this.remove()"></span>Vue 3 / Inertia</span>
+            <span class="tag"><span class="logo"><img class="m" src="https://cdn.simpleicons.org/springboot/8a98ab" alt="" loading="lazy" onerror="this.parentElement.remove()"><img class="c" src="https://cdn.simpleicons.org/springboot" alt="" loading="lazy" onerror="this.remove()"></span>Spring Boot</span>
+            <span class="tag"><span class="logo"><img class="m" src="https://cdn.simpleicons.org/php/8a98ab" alt="" loading="lazy" onerror="this.parentElement.remove()"><img class="c" src="https://cdn.simpleicons.org/php" alt="" loading="lazy" onerror="this.remove()"></span>PHP</span>
+            <span class="tag"><span class="logo"><img class="m" src="https://cdn.simpleicons.org/openjdk/8a98ab" alt="" loading="lazy" onerror="this.parentElement.remove()"><img class="c" src="https://cdn.simpleicons.org/openjdk/5fa8d3" alt="" loading="lazy" onerror="this.remove()"></span>Java</span>
+            <span class="tag"><span class="logo"><img class="m" src="https://cdn.simpleicons.org/javascript/8a98ab" alt="" loading="lazy" onerror="this.parentElement.remove()"><img class="c" src="https://cdn.simpleicons.org/javascript" alt="" loading="lazy" onerror="this.remove()"></span>JavaScript</span>
+          </div>
+        </div>
+        <div class="panel">
+          <div class="panel__head"><span class="pdot" aria-hidden="true"></span>data &amp; web</div>
+          <div class="tags">
+            <span class="tag"><span class="logo"><img class="m" src="https://cdn.simpleicons.org/mysql/8a98ab" alt="" loading="lazy" onerror="this.parentElement.remove()"><img class="c" src="https://cdn.simpleicons.org/mysql/5fa8d3" alt="" loading="lazy" onerror="this.remove()"></span>MySQL / MariaDB</span>
+            <span class="tag"><span class="gly" aria-hidden="true"><svg viewBox="0 0 24 24"><ellipse cx="12" cy="5" rx="7" ry="2.8"/><path d="M5 5v14c0 1.5 3.1 2.8 7 2.8s7-1.3 7-2.8V5"/><path d="M5 12c0 1.5 3.1 2.8 7 2.8s7-1.3 7-2.8"/></svg></span>SQL</span>
+            <span class="tag"><span class="logo"><img class="m" src="https://cdn.simpleicons.org/nginx/8a98ab" alt="" loading="lazy" onerror="this.parentElement.remove()"><img class="c" src="https://cdn.simpleicons.org/nginx" alt="" loading="lazy" onerror="this.remove()"></span>Nginx</span>
+            <span class="tag"><span class="logo"><img class="m" src="https://cdn.simpleicons.org/apache/8a98ab" alt="" loading="lazy" onerror="this.parentElement.remove()"><img class="c" src="https://cdn.simpleicons.org/apache" alt="" loading="lazy" onerror="this.remove()"></span>Apache</span>
+            <span class="tag"><span class="logo"><img class="m" src="https://cdn.simpleicons.org/git/8a98ab" alt="" loading="lazy" onerror="this.parentElement.remove()"><img class="c" src="https://cdn.simpleicons.org/git" alt="" loading="lazy" onerror="this.remove()"></span>Git</span>
+            <span class="tag"><span class="gly" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M7 9l3 3-3 3"/><path d="M13 15h4"/></svg></span>SSH</span>
+          </div>
+        </div>
+        <div class="panel">
+          <div class="panel__head"><span class="pdot" aria-hidden="true"></span>practices</div>
+          <div class="tags">
+            <span class="tag"><span class="gly" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="6"/><path d="M20 20l-4.3-4.3"/></svg></span>Root-cause analysis</span>
+            <span class="tag"><span class="gly" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3 17l6-6 4 4 8-8"/><path d="M17 7h4v4"/></svg></span>Escalation handling</span>
+            <span class="tag"><span class="gly" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 3h8l4 4v14H6z"/><path d="M14 3v4h4"/><path d="M9 13h6M9 16.5h6"/></svg></span>Technical documentation</span>
+            <span class="tag"><span class="gly" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 12a8 8 0 0 1 13.7-5.7L20 8"/><path d="M20 4v4h-4"/><path d="M20 12a8 8 0 0 1-13.7 5.7L4 16"/><path d="M4 20v-4h4"/></svg></span>Full SDLC</span>
+            <span class="tag"><span class="gly" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="3"/><path d="M3.5 19.5a5.5 5.5 0 0 1 11 0"/><path d="M16 7.6a3 3 0 0 1 0 5.3"/><path d="M16.5 14.2a5.5 5.5 0 0 1 4 5.3"/></svg></span>Mentoring</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== EXPERIENCE ===================== -->
+  <section id="experience" aria-labelledby="exp-h">
+    <div class="wrap reveal">
+      <p class="eyebrow"><b>// 03</b> experience<span class="rule" aria-hidden="true"></span></p>
+      <h2 class="h" id="exp-h">Track record.</h2>
+      <div class="timeline">
+
+        <article class="job">
+          <div class="job__meta">OCT 2025 — PRESENT</div>
+          <h3 class="job__title">Senior Technical Support Analyst</h3>
+          <p class="job__org">Philippine EDS Techno-Service Inc. — Yazaki Japan Affiliate</p>
+          <ul>
+            <li>Lead administration of the company server estate, keeping <b>production systems highly available</b> for daily affiliate operations.</li>
+            <li>Design, provision, secure, and optimize Linux VMs and LXC containers across a <b>Proxmox VE</b> environment.</li>
+            <li>Authored <b>Ansible playbooks</b> for automated VM/LXC provisioning, cutting deployment time and eliminating manual configuration errors.</li>
+            <li>Serve as <b>senior escalation point</b> for system, server, and application incidents across affiliates.</li>
+            <li>Own the full software lifecycle for internal tooling and plan phased legacy-Windows-to-Linux migrations.</li>
+          </ul>
+        </article>
+
+        <article class="job">
+          <div class="job__meta">AUG 2023 — OCT 2025</div>
+          <h3 class="job__title">Junior Technical Support Analyst</h3>
+          <p class="job__org">Philippine EDS Techno-Service Inc. — Yazaki Japan Affiliate</p>
+          <ul>
+            <li>Configured and deployed Linux VMs and <b>LXC containers on Proxmox</b> for in-house application hosting.</li>
+            <li>Built internal web applications in <b>Laravel</b> and <b>Spring Boot</b> to support affiliate business processes.</li>
+            <li>Wrote <b>Bash and Python</b> deployment/maintenance scripts to automate routine server tasks.</li>
+            <li>Ran UAT with end users and authored deployment and configuration documentation.</li>
+          </ul>
+        </article>
+
+        <article class="job">
+          <div class="job__meta">AUG 2022 — AUG 2023</div>
+          <h3 class="job__title">Associate Technical Support Analyst</h3>
+          <p class="job__org">Philippine EDS Techno-Service Inc. — Yazaki Japan Affiliate</p>
+          <ul>
+            <li>Developed and maintained in-house applications in <b>Java and PHP</b> for regional affiliate operations.</li>
+            <li>Handled system requests, bug fixes, and feature enhancements across Yazaki affiliates.</li>
+            <li>Supported day-to-day IT operations, application support, and incident resolution.</li>
+          </ul>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== PROJECTS ===================== -->
+  <section id="projects" aria-labelledby="proj-h">
+    <div class="wrap reveal">
+      <p class="eyebrow"><b>// 04</b> projects<span class="rule" aria-hidden="true"></span></p>
+      <h2 class="h" id="proj-h">Selected work.</h2>
+      <div class="grid2">
+
+        <article class="proj">
+          <div class="proj__top">
+            <h3 class="proj__name">Proxmox Provisioning Automation</h3>
+            <span class="chip">−93% setup</span>
+          </div>
+          <p class="proj__desc">Ansible playbooks (with Terraform via the bpg/proxmox provider) that standardize VM and LXC builds — replacing manual, error-prone configuration with reproducible, parameterized provisioning.</p>
+          <div class="tags"><span class="tag">Ansible</span><span class="tag">Terraform</span><span class="tag">Proxmox VE</span><span class="tag">IaC</span></div>
+        </article>
+
+        <article class="proj">
+          <div class="proj__top">
+            <h3 class="proj__name">Server Infrastructure Buildout</h3>
+            <span class="chip">7 hosts · 24 LXC</span>
+          </div>
+          <p class="proj__desc">Established the company's Linux server infrastructure on a Proxmox stack across bare-metal hosts, hosting in-house applications and production workloads with an automated, encrypted MySQL backup pipeline.</p>
+          <div class="tags"><span class="tag">Proxmox</span><span class="tag">AlmaLinux</span><span class="tag">Debian</span><span class="tag">MySQL backups</span></div>
+        </article>
+
+        <article class="proj">
+          <div class="proj__top">
+            <h3 class="proj__name">Internal Web Tools</h3>
+            <span class="chip chip--warn">in production</span>
+          </div>
+          <p class="proj__desc">Custom Laravel and Spring Boot applications with role-based access and multi-level approval workflows, plus utility scripts that streamline deployment, monitoring, and routine administration.</p>
+          <div class="tags"><span class="tag">Laravel</span><span class="tag">Vue 3</span><span class="tag">Spring Boot</span><span class="tag">RBAC</span></div>
+        </article>
+
+        <article class="proj">
+          <div class="proj__top">
+            <h3 class="proj__name">University Website — BISU</h3>
+            <span class="chip">programmer · design</span>
+          </div>
+          <p class="proj__desc">Served as programmer and designer for the official Bohol Island State University campus website during undergraduate studies.</p>
+          <div class="tags"><span class="tag">PHP</span><span class="tag">Web</span><span class="tag">UI design</span></div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== CREDENTIALS ===================== -->
+  <section id="credentials" aria-labelledby="cred-h">
+    <div class="wrap reveal">
+      <p class="eyebrow"><b>// 05</b> credentials<span class="rule" aria-hidden="true"></span></p>
+      <h2 class="h" id="cred-h">Certifications &amp; education.</h2>
+      <div class="cols">
+        <div>
+          <p class="sub">Certifications &amp; training</p>
+          <ul class="clist">
+            <li class="crow"><span class="crow__name">AWS Certified Cloud Practitioner (CLF-C02)<span class="badge">in&nbsp;progress</span></span><span class="crow__date">2026</span></li>
+            <li class="crow"><span class="crow__name">Linux Training — Completion</span><span class="crow__date">Dec 2023</span></li>
+            <li class="crow"><span class="crow__name">Laravel Training — Completion</span><span class="crow__date">Dec 2023</span></li>
+            <li class="crow"><span class="crow__name">VMware Training — Completion</span><span class="crow__date">Jun 2023</span></li>
+            <li class="crow"><span class="crow__name">Outstanding Contribution to ICT Services Unit</span><span class="crow__date">2022</span></li>
+            <li class="crow"><span class="crow__name">Proficient Student Award</span><span class="crow__date">2022</span></li>
+          </ul>
+          <p style="margin-top:1.1rem"><a href="https://drive.google.com/drive/folders/1mtCuuIRy9rasQwtW_M7ZsSYfULydYY99" target="_blank" rel="noopener">View certificate portfolio →</a></p>
+        </div>
+        <div>
+          <p class="sub">Education</p>
+          <div class="edu">
+            <h3 class="edu__deg">BS in Information Technology</h3>
+            <p class="edu__school">Bohol Island State University — Balilihan Campus, Bohol</p>
+            <p class="edu__date">2018 — 2022</p>
+            <p class="edu__note">Campus programmer &amp; designer · publication layout artist · Proficient Student Award.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== CONTACT ===================== -->
+  <section id="contact" aria-labelledby="contact-h">
+    <div class="wrap reveal">
+      <div class="contact">
+        <h2 id="contact-h">Let's talk infrastructure.</h2>
+        <p>Open to infrastructure, systems, SRE, and platform roles — remote or relocation. The fastest way to reach me is email.</p>
+        <div class="clinks">
+          <a class="btn btn--primary" href="mailto:enriejohnedem@gmail.com">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 6h16v12H4z"/><path d="m4 7 8 6 8-6"/></svg>
+            enriejohnedem@gmail.com
+          </a>
+          <a class="btn" href="https://www.linkedin.com/in/enrie-johnedem-6073a8223" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6.94 5a2 2 0 1 1-4 0 2 2 0 0 1 4 0ZM3.5 8.5h3v12h-3v-12Zm6 0h2.9v1.64h.04c.4-.76 1.4-1.56 2.88-1.56 3.08 0 3.65 2.03 3.65 4.67v7.25h-3v-6.43c0-1.53-.03-3.5-2.13-3.5-2.13 0-2.46 1.66-2.46 3.39v6.54h-3v-12Z"/></svg>
+            LinkedIn
+          </a>
+          <a class="btn" href="Enrie_John_Edem.pdf" download>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 3v12m0 0 4-4m-4 4-4-4"/><path d="M5 21h14"/></svg>
+            Download résumé
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="statusbar" aria-hidden="true">
+      <span class="seg seg--ok"><span class="sdot"></span>online</span>
+      <span class="seg">uptime <b>3y+</b></span>
+      <span class="seg">load <b>0.42 0.39 0.41</b></span>
+      <span class="seg">tf <b>applied&nbsp;✓</b></span>
+      <span class="seg seg--end">enrie@infra:~$</span>
+    </div>
+  </div>
+  <div class="wrap foot">
+    <span>© <span id="yr"></span> Enrie John Edem · Metro Manila, PH</span>
+    <span>References available on request</span>
+  </div>
+</footer>
+
+<script>
+  // current year
+  document.getElementById('yr').textContent = new Date().getFullYear();
+
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // mobile menu
+  const nav = document.getElementById('nav');
+  const menuBtn = document.getElementById('menuBtn');
+  menuBtn.addEventListener('click', () => {
+    const open = nav.classList.toggle('open');
+    menuBtn.setAttribute('aria-expanded', String(open));
+  });
+  nav.addEventListener('click', e => {
+    if (e.target.tagName === 'A') { nav.classList.remove('open'); menuBtn.setAttribute('aria-expanded','false'); }
+  });
+
+  // staged reveal of the .tf block (enhancement only)
+  const tf = document.getElementById('tf');
+  if (reduce) {
+    tf.classList.remove('anim');
+  } else {
+    const lines = tf.querySelectorAll('.line');
+    lines.forEach((ln, i) => {
+      setTimeout(() => ln.classList.add('in'), 140 + i * 55);
+    });
+  }
+
+  // scroll reveal
+  if (!reduce && 'IntersectionObserver' in window) {
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+    }, { threshold: 0.12 });
+    document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+  } else {
+    document.querySelectorAll('.reveal').forEach(el => el.classList.add('in'));
+  }
+
+  // active nav link via section observation
+  const links = [...document.querySelectorAll('.nav a')];
+  const map = new Map(links.map(a => [a.getAttribute('href').slice(1), a]));
+  const sections = [...map.keys()].map(id => document.getElementById(id)).filter(Boolean);
+  if ('IntersectionObserver' in window) {
+    const spy = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          links.forEach(a => a.classList.remove('is-active'));
+          const a = map.get(e.target.id);
+          if (a) a.classList.add('is-active');
+        }
+      });
+    }, { rootMargin: '-45% 0px -50% 0px' });
+    sections.forEach(s => spy.observe(s));
+  }
+</script>
+</body>
+</html>
