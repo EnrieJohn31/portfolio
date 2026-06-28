@@ -1106,28 +1106,46 @@
       }
     });
   };
+  const toggleTag = (tag) => {
+    const open = !tag.classList.contains('is-open');
+    closeImpactTags(tag);
+    tag.classList.toggle('is-open', open);
+    tag.setAttribute('aria-expanded', String(open));
+  };
   impactTags.forEach(tag => {
     tag.setAttribute('role', 'button');
     tag.setAttribute('aria-expanded', 'false');
-    tag.addEventListener('click', e => {
+    // touch: drive the toggle from touch events — mobile browsers don't reliably
+    // fire `click` on a <span>, so a tap would only flash the focus state.
+    let tx = 0, ty = 0, moved = false;
+    tag.addEventListener('touchstart', e => {
+      const t = e.changedTouches[0]; tx = t.clientX; ty = t.clientY; moved = false;
+    }, { passive: true });
+    tag.addEventListener('touchmove', e => {
+      const t = e.changedTouches[0];
+      if (Math.abs(t.clientX - tx) > 10 || Math.abs(t.clientY - ty) > 10) moved = true;
+    }, { passive: true });
+    tag.addEventListener('touchend', e => {
+      if (moved) return;        // it was a scroll, not a tap
+      e.preventDefault();       // suppress the ghost click (avoids a double toggle)
       e.stopPropagation();
-      const open = !tag.classList.contains('is-open');
-      closeImpactTags(tag);
-      tag.classList.toggle('is-open', open);
-      tag.setAttribute('aria-expanded', String(open));
+      toggleTag(tag);
     });
+    // mouse / pointer (desktop)
+    tag.addEventListener('click', e => { e.stopPropagation(); toggleTag(tag); });
+    // keyboard
     tag.addEventListener('keydown', e => {
-      if (e.key === 'Enter' || e.key === ' ') {
-        e.preventDefault();
-        tag.click();
-      } else if (e.key === 'Escape') {
-        tag.classList.remove('is-open');
-        tag.setAttribute('aria-expanded', 'false');
-        tag.blur();
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggleTag(tag); }
+      else if (e.key === 'Escape') {
+        tag.classList.remove('is-open'); tag.setAttribute('aria-expanded', 'false'); tag.blur();
       }
     });
   });
+  // tap/click anywhere else closes the open popover
   document.addEventListener('click', () => closeImpactTags());
+  document.addEventListener('touchstart', e => {
+    if (!e.target.closest('.tag[data-impact]')) closeImpactTags();
+  }, { passive: true });
 
   // staged reveal of the .tf block (enhancement only)
   const tf = document.getElementById('tf');
