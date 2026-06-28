@@ -410,7 +410,7 @@
   .tag .gly svg { width: 14px; height: 14px; display: block; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
   .tag:hover .gly { color: var(--ok); }
   .panel:hover .tag { border-color: var(--line-2); }
-  .tag[data-impact] { cursor: help; }
+  .tag[data-impact] { cursor: pointer; touch-action: manipulation; -webkit-tap-highlight-color: transparent; }
   .tag[data-impact].is-open {
     color: var(--text);
     border-color: rgba(70,224,160,.42);
@@ -426,11 +426,14 @@
     font-size: .68rem; line-height: 1.45; white-space: normal;
     opacity: 0; transform: translateY(4px); transition: opacity .18s var(--ease), transform .18s var(--ease);
   }
-  .tag[data-impact]:hover::after,
   .tag[data-impact]:focus::after,
   .tag[data-impact]:focus-visible::after,
   .tag[data-impact].is-open::after {
     opacity: 1; transform: none;
+  }
+  /* hover reveal only where a real pointer exists — avoids the iOS "tap twice" trap on touch */
+  @media (hover: hover) {
+    .tag[data-impact]:hover::after { opacity: 1; transform: none; }
   }
 
   /* ============================================================
@@ -592,7 +595,6 @@
       position: static; flex-basis: 100%; width: 100%; max-width: none; margin-top: .35rem;
       box-shadow: none; transform: none; display: none;
     }
-    .tag[data-impact]:hover::after,
     .tag[data-impact]:focus::after,
     .tag[data-impact]:focus-visible::after,
     .tag[data-impact].is-open::after {
