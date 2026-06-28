@@ -30,9 +30,10 @@ Follow the CLI prompts. For this static project, no build command is required.
 
 ## Before publishing
 
-Verify every metric and technology claim in `index.html`, especially the host/container counts, provisioning-time reduction, staff supported, Terraform usage, and certifications in progress.
+Verify every metric and technology claim in `index.html`, especially the host/container/VM counts, provisioning-time reduction, staff supported, Terraform usage, and certifications in progress.
 
 ## Impact metric notes
 
 - `₱8M+ license cost avoided` is a public-safe **projected VMware license cost avoidance** claim from choosing Proxmox VE. Do not describe it as annual savings or audited realized savings unless finance-approved evidence exists.
-- The Linux/LXC positioning should stay workload-aware: Linux-first web app hosting and LXC containers are preferred for lightweight, cost-effective workloads, while full VMs remain valid when an application needs stronger isolation, OS-specific dependencies, or dedicated resource boundaries.
+- The Linux/LXC positioning should stay workload-aware: Linux-first web app hosting and LXC containers are preferred for lightweight, cost-effective workloads, while the 12 managed VMs remain valid when an application needs stronger isolation, Windows Server, OS-specific dependencies, or dedicated resource boundaries.
+- Windows Server usage does not weaken the Linux/Proxmox story. Frame it as pragmatic workload placement for systems such as file services, payroll, and Business Central that require or strongly fit Windows.

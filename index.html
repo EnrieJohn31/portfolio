@@ -282,11 +282,12 @@
      METRIC STRIP — Grafana-style stat panels
      ============================================================ */
   .metrics {
-    display: grid; grid-template-columns: repeat(6, 1fr); gap: 1px;
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 1px;
     background: var(--line); border: 1px solid var(--line);
     border-radius: var(--radius); overflow: hidden;
   }
   .metric { background: var(--panel); padding: 1.25rem 1.1rem; }
+  .metric[title] { cursor: help; }
   .metric--featured {
     background:
       radial-gradient(110% 120% at 100% 0%, rgba(243,181,74,0.12), transparent 55%),
@@ -295,13 +296,25 @@
   .metric--featured .metric__val { color: var(--warn); }
   .metric__label {
     font-family: var(--font-mono); font-size: .68rem; color: var(--dim);
-    letter-spacing: .4px; text-transform: uppercase; margin-bottom: .5rem;
+    letter-spacing: .4px; text-transform: uppercase;
+    line-height: 1.3; min-height: 2.6em; margin-bottom: .55rem;
   }
   .metric__val {
     font-family: var(--font-display); font-weight: 600; font-size: clamp(1.5rem, 3.4vw, 2.1rem);
     color: var(--ok); line-height: 1; letter-spacing: -.01em;
   }
   .metric__val span { font-size: .55em; color: var(--muted); margin-left: .12em; font-family: var(--font-mono); font-weight: 400; }
+  /* featured qualifier ("projected") on its own line so it never crowds the figure */
+  .metric--featured .metric__val span {
+    display: block; margin: .3rem 0 0; font-size: .6rem; letter-spacing: .4px;
+    text-transform: uppercase; color: var(--muted);
+  }
+  /* always-visible scope note — reaches touch users where hover tooltips can't */
+  .metrics__note {
+    margin: .85rem 0 0; font-family: var(--font-mono); font-size: .72rem;
+    line-height: 1.55; color: var(--dim);
+  }
+  .metrics__note b { color: var(--muted); font-weight: 500; }
 
   /* ============================================================
      IMPACT CARD — public-safe business outcome snapshot
@@ -348,7 +361,7 @@
     letter-spacing: .35px; color: var(--muted); text-transform: uppercase;
   }
   .impact__stats {
-    display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px;
+    display: grid; grid-template-columns: repeat(5, 1fr); gap: 1px;
     background: var(--line); border: 1px solid var(--line); border-radius: var(--radius-sm);
     overflow: hidden; margin-top: 1.2rem;
   }
@@ -398,6 +411,12 @@
   .tag:hover .gly { color: var(--ok); }
   .panel:hover .tag { border-color: var(--line-2); }
   .tag[data-impact] { cursor: help; }
+  .tag[data-impact].is-open {
+    color: var(--text);
+    border-color: rgba(70,224,160,.42);
+  }
+  .tag[data-impact].is-open .logo svg { fill: var(--brand, var(--ok)); }
+  .tag[data-impact].is-open .gly { color: var(--ok); }
   .tag[data-impact]::after {
     content: attr(data-impact); position: absolute; left: 0; bottom: calc(100% + .55rem);
     z-index: 20; width: max-content; max-width: 250px; pointer-events: none;
@@ -409,7 +428,8 @@
   }
   .tag[data-impact]:hover::after,
   .tag[data-impact]:focus::after,
-  .tag[data-impact]:focus-visible::after {
+  .tag[data-impact]:focus-visible::after,
+  .tag[data-impact].is-open::after {
     opacity: 1; transform: none;
   }
 
@@ -574,7 +594,8 @@
     }
     .tag[data-impact]:hover::after,
     .tag[data-impact]:focus::after,
-    .tag[data-impact]:focus-visible::after {
+    .tag[data-impact]:focus-visible::after,
+    .tag[data-impact].is-open::after {
       display: block;
     }
     .status { margin-left: 0; }
@@ -781,23 +802,26 @@
         <div class="metric metric--featured" role="listitem"><div class="metric__label">license cost avoided</div><div class="metric__val">₱8M+<span>projected</span></div></div>
         <div class="metric" role="listitem"><div class="metric__label">experience</div><div class="metric__val">4+<span>yrs</span></div></div>
         <div class="metric" role="listitem"><div class="metric__label">proxmox hosts</div><div class="metric__val">7</div></div>
-        <div class="metric" role="listitem"><div class="metric__label">LXC containers</div><div class="metric__val">24</div></div>
+        <div class="metric" role="listitem" title="24 in production. Total estate ~66 VM/LXC instances — production plus development (25) and R&D (5)." aria-label="LXC containers: 24 in production; total estate about 66 VM and LXC instances across production, development and R&D environments"><div class="metric__label">LXC containers</div><div class="metric__val">24</div></div>
+        <div class="metric" role="listitem" title="12 in production. Total estate ~66 VM/LXC instances — production plus development (25) and R&D (5)." aria-label="Managed VMs: 12 in production; total estate about 66 VM and LXC instances across production, development and R&D environments"><div class="metric__label">managed VMs</div><div class="metric__val">12</div></div>
         <div class="metric" role="listitem"><div class="metric__label">provisioning time</div><div class="metric__val">−93<span>%</span></div></div>
         <div class="metric" role="listitem"><div class="metric__label">staff supported</div><div class="metric__val">~700</div></div>
       </div>
+      <p class="metrics__note">VM &amp; LXC counts are <b>production</b> — total estate ~66 instances incl. 25 development &amp; 5 R&amp;D.</p>
 
       <article class="impact-card" id="impact" aria-labelledby="impact-h">
         <p class="impact__eyebrow">// migration snapshot</p>
         <div class="impact__grid">
           <div>
             <h3 class="impact__title" id="impact-h">VMware to Proxmox Transition</h3>
-            <p class="impact__desc">Transitioned infrastructure strategy from VMware licensing dependency to Proxmox VE, reducing projected license cost while improving provisioning consistency through automation. Web applications run Linux-first where the workload fits; LXC containers are the lightweight, cost-effective default for app hosting, while full VMs remain available when isolation, OS requirements, or dependencies call for them.</p>
+            <p class="impact__desc">Transitioned infrastructure strategy from VMware licensing dependency to Proxmox VE, reducing projected license cost while improving provisioning consistency through automation. Web applications run Linux-first where the workload fits; LXC containers are the lightweight, cost-effective default for app hosting, while 12 managed VMs cover mixed Linux and Windows workloads. Windows Server stays where line-of-business systems such as file services, payroll, and Business Central require that platform.</p>
           </div>
           <div class="impact__value">₱8M+<span>projected license avoidance</span></div>
         </div>
         <div class="impact__stats" aria-label="Migration outcome highlights">
           <div class="impact__stat"><b>7</b><span>Proxmox hosts</span></div>
           <div class="impact__stat"><b>24</b><span>LXC containers</span></div>
+          <div class="impact__stat"><b>12</b><span>Linux / Windows VMs</span></div>
           <div class="impact__stat"><b>−93%</b><span>provisioning setup time</span></div>
           <div class="impact__stat"><b>Linux</b><span>web app hosting first</span></div>
         </div>
@@ -821,7 +845,7 @@
             <span class="tag"><span class="logo" style="--brand:#0091DA"><svg class="bi" aria-hidden="true"><use href="#i-vmware"></use></svg></span>VMware</span>
             <span class="tag"><span class="logo" style="--brand:#2496ED"><svg class="bi" aria-hidden="true"><use href="#i-docker"></use></svg></span>Docker</span>
             <span class="tag" tabindex="0" data-impact="Encrypted MySQL backup pipeline" aria-label="Backup and recovery: Encrypted MySQL backup pipeline"><span class="gly" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3" y="12" width="18" height="7" rx="2"/><circle cx="7" cy="15.5" r="1"/><path d="M12 3v6m0 0 2.5-2.5M12 9 9.5 6.5"/></svg></span>Backup &amp; recovery</span>
-            <span class="tag"><span class="gly" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3l7 3v5c0 4.4-3 7.4-7 8.8C8 18.4 5 15.4 5 11V6z"/><path d="M9.3 11.5l1.8 1.8 3.6-3.8"/></svg></span>Linux hardening</span>
+            <span class="tag" tabindex="0" data-impact="Linux-first web app hosting where the workload fits" aria-label="Linux hardening: Linux-first web app hosting where the workload fits"><span class="gly" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3l7 3v5c0 4.4-3 7.4-7 8.8C8 18.4 5 15.4 5 11V6z"/><path d="M9.3 11.5l1.8 1.8 3.6-3.8"/></svg></span>Linux hardening</span>
           </div>
         </div>
         <div class="panel">
@@ -841,7 +865,7 @@
             <span class="tag"><span class="logo" style="--brand:#3A8FD4"><svg class="bi" aria-hidden="true"><use href="#i-almalinux"></use></svg></span>AlmaLinux</span>
             <span class="tag"><span class="logo" style="--brand:#E95420"><svg class="bi" aria-hidden="true"><use href="#i-ubuntu"></use></svg></span>Ubuntu Server</span>
             <span class="tag"><span class="logo" style="--brand:#A81D33"><svg class="bi" aria-hidden="true"><use href="#i-debian"></use></svg></span>Debian</span>
-            <span class="tag"><span class="gly" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3.5" y="3.5" width="7.5" height="7.5" rx=".6"/><rect x="13" y="3.5" width="7.5" height="7.5" rx=".6"/><rect x="3.5" y="13" width="7.5" height="7.5" rx=".6"/><rect x="13" y="13" width="7.5" height="7.5" rx=".6"/></svg></span>Windows Server</span>
+            <span class="tag" tabindex="0" data-impact="Kept for workload-fit systems: file services, payroll, and Business Central" aria-label="Windows Server: Kept for workload-fit systems such as file services, payroll, and Business Central"><span class="gly" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3.5" y="3.5" width="7.5" height="7.5" rx=".6"/><rect x="13" y="3.5" width="7.5" height="7.5" rx=".6"/><rect x="3.5" y="13" width="7.5" height="7.5" rx=".6"/><rect x="13" y="13" width="7.5" height="7.5" rx=".6"/></svg></span>Windows Server</span>
             <span class="tag"><span class="logo" style="--brand:#EE0000"><svg class="bi" aria-hidden="true"><use href="#i-redhat"></use></svg></span>RHEL</span>
           </div>
         </div>
@@ -859,7 +883,7 @@
         <div class="panel">
           <div class="panel__head"><span class="pdot" aria-hidden="true"></span>data &amp; web</div>
           <div class="tags">
-            <span class="tag"><span class="logo" style="--brand:#5FA8D3"><svg class="bi" aria-hidden="true"><use href="#i-mysql"></use></svg></span>MySQL / MariaDB</span>
+            <span class="tag" tabindex="0" data-impact="Open-source MySQL / MariaDB standardized over licensed databases like MS SQL Server — no per-core database licensing for app data stores" aria-label="MySQL and MariaDB: open-source databases chosen over licensed options like MS SQL Server to avoid licensing cost"><span class="logo" style="--brand:#5FA8D3"><svg class="bi" aria-hidden="true"><use href="#i-mysql"></use></svg></span>MySQL / MariaDB</span>
             <span class="tag"><span class="gly" aria-hidden="true"><svg viewBox="0 0 24 24"><ellipse cx="12" cy="5" rx="7" ry="2.8"/><path d="M5 5v14c0 1.5 3.1 2.8 7 2.8s7-1.3 7-2.8V5"/><path d="M5 12c0 1.5 3.1 2.8 7 2.8s7-1.3 7-2.8"/></svg></span>SQL</span>
             <span class="tag"><span class="logo" style="--brand:#009639"><svg class="bi" aria-hidden="true"><use href="#i-nginx"></use></svg></span>Nginx</span>
             <span class="tag"><span class="logo" style="--brand:#D22128"><svg class="bi" aria-hidden="true"><use href="#i-apache"></use></svg></span>Apache</span>
@@ -894,11 +918,12 @@
           <p class="job__org">Philippine EDS Techno-Service Inc. — Yazaki Japan Affiliate</p>
           <ul>
             <li>Lead administration of the company server estate, keeping <b>production systems highly available</b> for daily affiliate operations.</li>
-            <li>Design, provision, secure, and optimize Linux VMs and LXC containers across a <b>Proxmox VE</b> environment.</li>
-            <li>Host web applications on <b>Linux-first infrastructure</b>, using LXC containers for lightweight, cost-effective workloads and full VMs when application requirements call for heavier isolation or OS-specific dependencies.</li>
+            <li>Manage <b>12 mixed Linux/Windows VMs</b> and 24 LXC containers across a <b>Proxmox VE</b> environment.</li>
+            <li>Host web applications on <b>Linux-first infrastructure</b>, using LXC containers for lightweight, cost-effective workloads and full VMs when application requirements call for heavier isolation, Windows Server, or OS-specific dependencies.</li>
+            <li>Keep Windows workloads where they make business sense, including file services, payroll, and Business Central systems that require the Windows platform.</li>
             <li>Authored <b>Ansible playbooks</b> for automated VM/LXC provisioning, cutting deployment time and eliminating manual configuration errors.</li>
             <li>Serve as <b>senior escalation point</b> for system, server, and application incidents across affiliates.</li>
-            <li>Own the full software lifecycle for internal tooling and plan phased legacy-Windows-to-Linux migrations.</li>
+            <li>Own the full software lifecycle for internal tooling and plan phased legacy-Windows-to-Linux migrations where the application stack allows it.</li>
           </ul>
         </article>
 
@@ -951,7 +976,7 @@
             <h3 class="proj__name">Server Infrastructure Buildout</h3>
             <span class="chip">₱8M+ projected</span>
           </div>
-          <p class="proj__desc">Established the company's Linux server infrastructure on a Proxmox stack across bare-metal hosts, using LXC containers for lightweight web app workloads and full VMs when the application profile needs heavier isolation, OS-specific dependencies, or dedicated boundaries.</p>
+          <p class="proj__desc">Established the company's Linux-first application hosting on a Proxmox stack across bare-metal hosts, using LXC containers for lightweight web app workloads and managing 12 Linux/Windows VMs for systems that need full OS isolation or Windows-dependent business applications.</p>
           <p class="proj__link"><a href="#impact">Migration snapshot →</a></p>
           <div class="tags"><span class="tag">Proxmox</span><span class="tag">AlmaLinux</span><span class="tag">Debian</span><span class="tag">MySQL backups</span></div>
         </article>
@@ -987,7 +1012,7 @@
         <div>
           <p class="sub">Certifications &amp; training</p>
           <ul class="clist">
-            <li class="crow"><span class="crow__name">AWS Certified Cloud Practitioner (CLF-C02)<span class="badge">in&nbsp;progress</span></span><span class="crow__date">2026</span></li>
+            <li class="crow"><span class="crow__name">AWS Certified Cloud Practitioner (CLF-C02)<span class="badge">studying</span></span><span class="crow__date">2026</span></li>
             <li class="crow"><span class="crow__name">Linux Training — Completion</span><span class="crow__date">Dec 2023</span></li>
             <li class="crow"><span class="crow__name">Laravel Training — Completion</span><span class="crow__date">Dec 2023</span></li>
             <li class="crow"><span class="crow__name">VMware Training — Completion</span><span class="crow__date">Jun 2023</span></li>
@@ -1067,6 +1092,40 @@
   nav.addEventListener('click', e => {
     if (e.target.tagName === 'A') { nav.classList.remove('open'); menuBtn.setAttribute('aria-expanded','false'); }
   });
+
+  // impact tag popovers: click/tap keeps the story open until another target is chosen
+  const impactTags = [...document.querySelectorAll('.tag[data-impact]')];
+  const closeImpactTags = (except = null) => {
+    impactTags.forEach(tag => {
+      if (tag !== except) {
+        tag.classList.remove('is-open');
+        tag.setAttribute('aria-expanded', 'false');
+        if (document.activeElement === tag) tag.blur();
+      }
+    });
+  };
+  impactTags.forEach(tag => {
+    tag.setAttribute('role', 'button');
+    tag.setAttribute('aria-expanded', 'false');
+    tag.addEventListener('click', e => {
+      e.stopPropagation();
+      const open = !tag.classList.contains('is-open');
+      closeImpactTags(tag);
+      tag.classList.toggle('is-open', open);
+      tag.setAttribute('aria-expanded', String(open));
+    });
+    tag.addEventListener('keydown', e => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        tag.click();
+      } else if (e.key === 'Escape') {
+        tag.classList.remove('is-open');
+        tag.setAttribute('aria-expanded', 'false');
+        tag.blur();
+      }
+    });
+  });
+  document.addEventListener('click', () => closeImpactTags());
 
   // staged reveal of the .tf block (enhancement only)
   const tf = document.getElementById('tf');
