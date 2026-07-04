@@ -526,6 +526,63 @@
   .edu__date { font-family: var(--font-mono); font-size: .76rem; color: var(--ok); }
   .edu__note { margin-top: 1.1rem; padding-top: 1.1rem; border-top: 1px solid var(--line); font-size: .9rem; color: var(--muted); }
 
+  .cert-link {
+    display: inline-flex; align-items: center; gap: .3rem;
+    font-family: var(--font-mono); font-size: .68rem; color: var(--info);
+    margin-left: .55rem; padding: .15rem .5rem; vertical-align: middle;
+    border: 1px solid rgba(98,168,255,.32); background: rgba(98,168,255,.08);
+    border-radius: 999px; cursor: pointer;
+    transition: background .2s var(--ease), border-color .2s var(--ease), transform .2s var(--ease);
+  }
+  .cert-link:hover { background: rgba(98,168,255,.18); border-color: rgba(98,168,255,.55); transform: translateY(-1px); text-decoration: none; }
+  .cert-link svg { width: 11px; height: 11px; flex: none; }
+
+  /* ============================================================
+     CERTIFICATE MODAL
+     ============================================================ */
+  body.no-scroll { overflow: hidden; }
+  .cert-modal {
+    position: fixed; inset: 0; z-index: 300;
+    display: none; align-items: center; justify-content: center; padding: 1.5rem;
+  }
+  .cert-modal.is-open { display: flex; }
+  .cert-modal__backdrop {
+    position: absolute; inset: 0; background: rgba(4,7,11,.8); backdrop-filter: blur(4px);
+  }
+  .cert-modal__panel {
+    position: relative; z-index: 1; width: 100%; max-width: 860px; max-height: 88vh;
+    display: flex; flex-direction: column; overflow: hidden;
+    background: var(--panel); border: 1px solid var(--line-2); border-radius: var(--radius);
+    box-shadow: 0 24px 64px rgba(0,0,0,.5);
+    animation: certIn .18s var(--ease);
+  }
+  @keyframes certIn { from { opacity: 0; transform: translateY(6px) scale(.98); } to { opacity: 1; transform: none; } }
+  .cert-modal__head {
+    display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+    padding: .85rem 1.1rem; border-bottom: 1px solid var(--line);
+  }
+  .cert-modal__title { font-family: var(--font-mono); font-size: .82rem; color: var(--text); }
+  .cert-modal__close {
+    width: 30px; height: 30px; display: inline-flex; align-items: center; justify-content: center;
+    background: none; border: 1px solid var(--line-2); border-radius: 7px; color: var(--muted); cursor: pointer;
+    transition: color .2s var(--ease), border-color .2s var(--ease), background .2s var(--ease);
+  }
+  .cert-modal__close:hover { color: var(--text); background: var(--panel-2); border-color: var(--line-2); }
+  .cert-modal__close svg { width: 15px; height: 15px; }
+  .cert-modal__body {
+    flex: 1; min-height: 320px; overflow: auto;
+    display: flex; align-items: center; justify-content: center;
+    background: var(--inset);
+  }
+  .cert-modal__body img { display: block; max-width: 100%; max-height: 78vh; }
+  .cert-modal__body iframe { width: 100%; height: 78vh; border: 0; background: #fff; }
+  .cert-modal__foot {
+    display: flex; justify-content: space-between; gap: 1rem;
+    padding: .65rem 1.1rem; border-top: 1px solid var(--line);
+  }
+  .cert-modal__foot a { font-family: var(--font-mono); font-size: .76rem; color: var(--muted); }
+  .cert-modal__foot a:hover { color: var(--info); }
+
   /* ============================================================
      CONTACT + FOOTER
      ============================================================ */
@@ -644,7 +701,7 @@
     * { box-shadow: none !important; animation: none !important; }
 
     /* screen-only chrome */
-    .topbar, .menu-btn, .skip, .statusbar, .cur, .dot, .sdot { display: none !important; }
+    .topbar, .menu-btn, .skip, .statusbar, .cur, .dot, .sdot, .cert-link, .cert-modal { display: none !important; }
 
     /* neutralize hard-coded gradients so panels stay clean white */
     .impact-card, .contact, .metric--featured { background: var(--panel) !important; }
@@ -783,10 +840,10 @@
           <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6.94 5a2 2 0 1 1-4 0 2 2 0 0 1 4 0ZM3.5 8.5h3v12h-3v-12Zm6 0h2.9v1.64h.04c.4-.76 1.4-1.56 2.88-1.56 3.08 0 3.65 2.03 3.65 4.67v7.25h-3v-6.43c0-1.53-.03-3.5-2.13-3.5-2.13 0-2.46 1.66-2.46 3.39v6.54h-3v-12Z"/></svg>
           LinkedIn
         </a>
-        <a class="btn" href="Enrie_John_Edem.pdf" download>
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 3v12m0 0 4-4m-4 4-4-4"/><path d="M5 21h14"/></svg>
-          Résumé
-        </a>
+        <button type="button" class="btn" data-cert="Enrie_John_Edem_Resume.pdf" data-cert-type="pdf" data-cert-title="Résumé — Enrie John Edem">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7Z"/><circle cx="12" cy="12" r="3"/></svg>
+          View résumé
+        </button>
         <span class="status"><span class="dot" aria-hidden="true"></span>open to work</span>
       </div>
     </div>
@@ -1015,13 +1072,12 @@
           <p class="sub">Certifications &amp; training</p>
           <ul class="clist">
             <li class="crow"><span class="crow__name">AWS Certified Cloud Practitioner (CLF-C02)<span class="badge">studying</span></span><span class="crow__date">2026</span></li>
-            <li class="crow"><span class="crow__name">Linux Training — Completion</span><span class="crow__date">Dec 2023</span></li>
-            <li class="crow"><span class="crow__name">Laravel Training — Completion</span><span class="crow__date">Dec 2023</span></li>
-            <li class="crow"><span class="crow__name">VMware Training — Completion</span><span class="crow__date">Jun 2023</span></li>
-            <li class="crow"><span class="crow__name">Outstanding Contribution to ICT Services Unit</span><span class="crow__date">2022</span></li>
-            <li class="crow"><span class="crow__name">Proficient Student Award</span><span class="crow__date">2022</span></li>
+            <li class="crow"><span class="crow__name">Linux Training — Completion<button type="button" class="cert-link" data-cert="certificates/Linux%20Certificate.pdf" data-cert-type="pdf" data-cert-title="Linux Training — Completion"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7Z"/><circle cx="12" cy="12" r="3"/></svg>View</button></span><span class="crow__date">Dec 2023</span></li>
+            <li class="crow"><span class="crow__name">Laravel Training — Completion<button type="button" class="cert-link" data-cert="certificates/Laravel%20Certificate.pdf" data-cert-type="pdf" data-cert-title="Laravel Training — Completion"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7Z"/><circle cx="12" cy="12" r="3"/></svg>View</button></span><span class="crow__date">Dec 2023</span></li>
+            <li class="crow"><span class="crow__name">VMware Training — Completion<button type="button" class="cert-link" data-cert="certificates/VMwarecertificate.pdf" data-cert-type="pdf" data-cert-title="VMware Training — Completion"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7Z"/><circle cx="12" cy="12" r="3"/></svg>View</button></span><span class="crow__date">Jun 2023</span></li>
+            <li class="crow"><span class="crow__name">Outstanding Contribution to ICT Services Unit<button type="button" class="cert-link" data-cert="certificates/Campus Service Awardee.jpg" data-cert-type="image" data-cert-title="Outstanding Contribution to ICT Services Unit"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7Z"/><circle cx="12" cy="12" r="3"/></svg>View</button></span><span class="crow__date">2022</span></li>
+            <li class="crow"><span class="crow__name">Proficient Student Award<button type="button" class="cert-link" data-cert="certificates/ProficientCertif.jpg" data-cert-type="image" data-cert-title="Proficient Student Award"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7Z"/><circle cx="12" cy="12" r="3"/></svg>View</button></span><span class="crow__date">2022</span></li>
           </ul>
-          <p style="margin-top:1.1rem"><a href="https://drive.google.com/drive/folders/1mtCuuIRy9rasQwtW_M7ZsSYfULydYY99" target="_blank" rel="noopener">View certificate portfolio →</a></p>
         </div>
         <div>
           <p class="sub">Education</p>
@@ -1051,7 +1107,7 @@
             <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6.94 5a2 2 0 1 1-4 0 2 2 0 0 1 4 0ZM3.5 8.5h3v12h-3v-12Zm6 0h2.9v1.64h.04c.4-.76 1.4-1.56 2.88-1.56 3.08 0 3.65 2.03 3.65 4.67v7.25h-3v-6.43c0-1.53-.03-3.5-2.13-3.5-2.13 0-2.46 1.66-2.46 3.39v6.54h-3v-12Z"/></svg>
             LinkedIn
           </a>
-          <a class="btn" href="Enrie_John_Edem.pdf" download>
+          <a class="btn" href="Enrie_John_Edem_Resume.pdf" download>
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 3v12m0 0 4-4m-4 4-4-4"/><path d="M5 21h14"/></svg>
             Download résumé
           </a>
@@ -1077,6 +1133,23 @@
     <span>References available on request</span>
   </div>
 </footer>
+
+<div class="cert-modal" id="certModal" aria-hidden="true">
+  <div class="cert-modal__backdrop" id="certModalBackdrop"></div>
+  <div class="cert-modal__panel" role="dialog" aria-modal="true" aria-labelledby="certModalTitle">
+    <div class="cert-modal__head">
+      <span class="cert-modal__title" id="certModalTitle">Certificate</span>
+      <button type="button" class="cert-modal__close" id="certModalClose" aria-label="Close">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg>
+      </button>
+    </div>
+    <div class="cert-modal__body" id="certModalBody"></div>
+    <div class="cert-modal__foot">
+      <a id="certModalDownload" href="#" download>Download ⭳</a>
+      <a id="certModalOpen" href="#" target="_blank" rel="noopener">Open original file →</a>
+    </div>
+  </div>
+</div>
 
 <script>
   // current year
@@ -1184,6 +1257,63 @@
     }, { rootMargin: '-45% 0px -50% 0px' });
     sections.forEach(s => spy.observe(s));
   }
+
+  // certificate viewer modal
+  const certModal = document.getElementById('certModal');
+  const certModalBody = document.getElementById('certModalBody');
+  const certModalTitle = document.getElementById('certModalTitle');
+  const certModalOpen = document.getElementById('certModalOpen');
+  const certModalDownload = document.getElementById('certModalDownload');
+  const certModalClose = document.getElementById('certModalClose');
+  const certModalBackdrop = document.getElementById('certModalBackdrop');
+  let certLastFocused = null;
+
+  function openCertModal(src, type, title) {
+    certLastFocused = document.activeElement;
+    certModalTitle.textContent = title || 'Certificate';
+    certModalOpen.href = src;
+    certModalDownload.href = src;
+    certModalDownload.download = decodeURIComponent(src.split('/').pop());
+    certModalBody.innerHTML = '';
+    if (type === 'pdf') {
+      const iframe = document.createElement('iframe');
+      iframe.src = src;
+      iframe.title = title || 'Certificate';
+      certModalBody.appendChild(iframe);
+    } else {
+      const img = document.createElement('img');
+      img.src = src;
+      img.alt = title || 'Certificate';
+      certModalBody.appendChild(img);
+    }
+    certModal.classList.add('is-open');
+    certModal.setAttribute('aria-hidden', 'false');
+    document.body.classList.add('no-scroll');
+    certModalClose.focus();
+    document.addEventListener('keydown', onCertModalKeydown);
+  }
+
+  function closeCertModal() {
+    certModal.classList.remove('is-open');
+    certModal.setAttribute('aria-hidden', 'true');
+    document.body.classList.remove('no-scroll');
+    certModalBody.innerHTML = '';
+    document.removeEventListener('keydown', onCertModalKeydown);
+    if (certLastFocused) certLastFocused.focus();
+  }
+
+  function onCertModalKeydown(e) {
+    if (e.key === 'Escape') closeCertModal();
+  }
+
+  document.querySelectorAll('[data-cert]').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      openCertModal(btn.dataset.cert, btn.dataset.certType, btn.dataset.certTitle);
+    });
+  });
+  certModalClose.addEventListener('click', closeCertModal);
+  certModalBackdrop.addEventListener('click', closeCertModal);
 </script>
 </body>
 </html>
