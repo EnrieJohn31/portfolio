@@ -1,48 +1,38 @@
-# Enrie John Edem — Portfolio
+# Enrie John Edem - Portfolio
 
-Static HTML portfolio prepared for Vercel.
+Recruiter-focused static portfolio for Linux infrastructure, systems automation, and DevOps-oriented roles. The site is intentionally framework-free so it remains fast, portable, and easy to deploy.
 
-## Files
+## Main files
 
-- `index.html` — portfolio website (single file: markup, CSS, JS)
-- `Enrie_John_Edem_Resume.pdf` — downloadable resume (the HTML points to this exact filename)
-- `certificates/` — kebab-case certificate PDFs/JPGs opened by the in-page viewer
-- `vercel.json` — clean URLs and security headers (incl. Content-Security-Policy)
-- `robots.txt` / `sitemap.xml` — crawler directives
-- `404.html` — custom not-found page
+- `index.html` - complete portfolio markup, styles, and interactions
+- `Enrie_John_Edem_Infrastructure_Systems_Engineer_Resume.pdf` - text-native résumé for direct download
+- `Enrie_John_Edem_Infrastructure_Systems_Engineer_Resume.docx` - editable ATS-friendly résumé
+- `og-image-v2.png` - recruiter-focused social sharing preview
+- `certificates/` - course certificates and awards used by the credential viewer
+- `vercel.json` - clean URLs and security headers
+- `robots.txt`, `sitemap.xml`, and `404.html` - search and routing support
 
-## Manual follow-ups (owner actions)
+## Résumé source
 
-1. **Custom domain** — buy one (e.g. `enriejohn.dev`) and add it in Vercel. Then update the URL in: `<link rel="canonical">`, all `og:`/`twitter:` meta URLs, the JSON-LD `url`/`image`, `robots.txt`, and `sitemap.xml`.
-2. **Vercel Web Analytics** — the snippet is already in `index.html`; enable it in Vercel: Project → Analytics → Enable. Until enabled, the script 404s harmlessly.
-3. **Publish a sanitized automation repo** on GitHub (Ansible role + Terraform `bpg/proxmox` example with dummy variables), then link it from the "Proxmox Provisioning Automation" project card. The site now links your GitHub profile — an empty profile undercuts it.
-4. **Fonts (optional next step)** — currently trimmed and loaded async from Google Fonts. Self-hosting subsetted woff2 files would remove the third-party request chain entirely.
+The editable résumé source is `scripts/resume_source.html`. On Windows with Microsoft Word installed, rebuild the DOCX and PDF with:
 
-## Deploy with Vercel CLI
+```powershell
+powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\build_resume.ps1
+```
 
-```bash
+The generated artifacts are written to `output/docx/` and `output/pdf/`. The script also refreshes the portfolio download copies in the repository root, including the legacy PDF filename used by older links.
+
+## Deploy to Vercel
+
+This is a static project, so no build command or output directory is required.
+
+```powershell
 npm install -g vercel
-cd enrie-portfolio-vercel
 vercel --prod
 ```
 
-Follow the CLI prompts. For this static project, no build command is required.
+When moving to a custom domain, update the canonical URL, Open Graph URLs, JSON-LD URL, `robots.txt`, and `sitemap.xml` together.
 
-## Deploy through Git
+## Content maintenance
 
-1. Create a repository and add these files at the repository root.
-2. Import the repository in Vercel.
-3. Set Framework Preset to `Other`.
-4. Leave Build Command empty.
-5. Leave Output Directory empty (repository root).
-6. Deploy.
-
-## Before publishing
-
-Verify every metric and technology claim in `index.html`, especially the host/container/VM counts, provisioning-time reduction, staff supported, Terraform usage, and certifications in progress.
-
-## Impact metric notes
-
-- `₱8M+ license cost avoided` is a public-safe **projected VMware license cost avoidance** claim from choosing Proxmox VE. Do not describe it as annual savings or audited realized savings unless finance-approved evidence exists.
-- The Linux/LXC positioning should stay workload-aware: Linux-first web app hosting and LXC containers are preferred for lightweight, cost-effective workloads, while the 12 managed VMs remain valid when an application needs stronger isolation, Windows Server, OS-specific dependencies, or dedicated resource boundaries.
-- Windows Server usage does not weaken the Linux/Proxmox story. Frame it as pragmatic workload placement for systems such as file services, payroll, and Business Central that require or strongly fit Windows.
+Keep the portfolio and résumé aligned on job titles, dates, infrastructure scope, and outcome metrics. Describe projected cost avoidance as projected, and add exact measurement baselines only when they are safe to disclose and can be defended in an interview.
