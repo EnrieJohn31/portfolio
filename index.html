@@ -292,7 +292,14 @@
     background: var(--line); border: 1px solid var(--line);
     border-radius: var(--radius); overflow: hidden;
   }
-  .metric { background: var(--panel); padding: 1.25rem 1.1rem; }
+  .metric {
+    background: var(--panel); padding: 1.25rem 1.1rem;
+    /* grid items default to min-width:auto, which lets long unbreakable
+       tokens (labels/values) force the track wider than its cell and spill
+       past the panel edge. min-width:0 lets the track honor minmax() and
+       overflow-wrap forces any stray long token to wrap instead of escape. */
+    min-width: 0; overflow-wrap: break-word; word-break: break-word;
+  }
   .metric[title] { cursor: help; }
   .metric--featured {
     background:
@@ -371,7 +378,10 @@
     background: var(--line); border: 1px solid var(--line); border-radius: var(--radius-sm);
     overflow: hidden; margin-top: 1.2rem;
   }
-  .impact__stat { background: color-mix(in srgb, var(--inset) 82%, transparent); padding: .8rem .95rem; }
+  .impact__stat {
+    background: color-mix(in srgb, var(--inset) 82%, transparent); padding: .8rem .95rem;
+    min-width: 0; overflow-wrap: break-word; word-break: break-word;
+  }
   .impact__stat b {
     display: block; font-family: var(--font-display); font-size: 1.2rem;
     color: var(--ok); line-height: 1.1;
@@ -635,7 +645,7 @@
      RESPONSIVE
      ============================================================ */
   @media (max-width: 860px) {
-    .metrics { grid-template-columns: repeat(2, 1fr); }
+    .metrics { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     .impact__grid { grid-template-columns: 1fr; }
     .impact__value { text-align: left; }
     .panels { grid-template-columns: 1fr; }
@@ -651,7 +661,7 @@
     }
     .nav.open a { padding: .5rem 0; width: 100%; }
     .menu-btn { display: inline-flex; }
-    .metrics { grid-template-columns: 1fr 1fr; }
+    .metrics { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
     .impact__stats { grid-template-columns: 1fr; }
     .tag[data-impact] { flex-wrap: wrap; }
     .tag[data-impact]::after {
@@ -931,45 +941,46 @@
               </defs>
 
               <!-- serves annotation -->
-              <text x="358" y="22" text-anchor="middle" class="a-d">serves ~700 staff · daily affiliate operations</text>
-              <line x1="358" y1="32" x2="358" y2="62" class="a-line a-dash"/>
+              <text x="350" y="22" text-anchor="middle" class="a-d">serves ~700 staff · daily affiliate operations</text>
+              <line x1="350" y1="32" x2="350" y2="62" class="a-line a-dash"/>
 
               <!-- IaC / provisioning -->
-              <rect x="16" y="178" width="152" height="104" rx="8" class="a-box"/>
-              <text x="32" y="206" class="a-t">declarative IaC</text>
-              <text x="32" y="228" class="a-m">Ansible playbooks</text>
-              <text x="32" y="246" class="a-m">Terraform · bpg/proxmox</text>
-              <text x="32" y="266" class="a-d">−93% provisioning time</text>
-              <line x1="168" y1="230" x2="210" y2="230" class="a-line" marker-end="url(#a-head)"/>
+              <rect x="16" y="178" width="168" height="104" rx="8" class="a-box"/>
+              <text x="30" y="206" class="a-t">declarative IaC</text>
+              <text x="30" y="228" class="a-m">Ansible playbooks</text>
+              <text x="30" y="246" class="a-m">Terraform (bpg)</text>
+              <text x="30" y="266" class="a-d">−93% provisioning time</text>
+              <line x1="184" y1="230" x2="194" y2="230" class="a-line" marker-end="url(#a-head)"/>
 
               <!-- Proxmox cluster -->
-              <rect x="216" y="64" width="284" height="348" rx="10" class="a-panel"/>
-              <text x="236" y="94" class="a-t">Proxmox VE cluster</text>
-              <text x="236" y="112" class="a-d">7 × bare-metal hosts · KVM + LXC</text>
-              <line x1="236" y1="124" x2="480" y2="124" class="a-line" opacity=".55"/>
+              <rect x="200" y="64" width="300" height="348" rx="10" class="a-panel"/>
+              <text x="218" y="94" class="a-t">Proxmox VE cluster</text>
+              <text x="218" y="112" class="a-d">7 × bare-metal hosts · KVM + LXC</text>
+              <line x1="218" y1="124" x2="482" y2="124" class="a-line" opacity=".55"/>
 
-              <rect x="232" y="138" width="252" height="112" rx="8" class="a-box"/>
-              <circle cx="250" cy="162" r="3.5" class="a-ok"/>
-              <text x="262" y="166" class="a-t">24 × LXC containers</text>
-              <text x="250" y="188" class="a-m">Linux-first web workloads</text>
-              <text x="250" y="206" class="a-d">Laravel · Spring Boot · Nginx / Apache</text>
-              <text x="250" y="222" class="a-d">MySQL / MariaDB data stores</text>
+              <rect x="216" y="138" width="268" height="112" rx="8" class="a-box"/>
+              <circle cx="234" cy="162" r="3.5" class="a-ok"/>
+              <text x="246" y="166" class="a-t">24 × LXC containers</text>
+              <text x="234" y="188" class="a-m">Linux-first web workloads</text>
+              <text x="234" y="206" class="a-d">Laravel · Spring Boot apps</text>
+              <text x="234" y="222" class="a-d">Nginx / Apache · MySQL / MariaDB</text>
 
-              <rect x="232" y="264" width="252" height="112" rx="8" class="a-box"/>
-              <circle cx="250" cy="288" r="3.5" class="a-warn"/>
-              <text x="262" y="292" class="a-t">12 × VMs — Linux + Windows</text>
-              <text x="250" y="314" class="a-m">full isolation · OS-specific stacks</text>
-              <text x="250" y="332" class="a-d">file services · payroll · Business Central</text>
+              <rect x="216" y="264" width="268" height="112" rx="8" class="a-box"/>
+              <circle cx="234" cy="288" r="3.5" class="a-warn"/>
+              <text x="246" y="292" class="a-t">12 × VMs — Linux + Windows</text>
+              <text x="234" y="314" class="a-m">full OS isolation where needed</text>
+              <text x="234" y="332" class="a-d">file services · payroll</text>
+              <text x="234" y="348" class="a-d">Microsoft Business Central</text>
 
-              <text x="236" y="398" class="a-d">environments — production 36 · development 25 · R&amp;D 5</text>
+              <text x="218" y="398" class="a-d">environments: prod 36 · dev 25 · R&amp;D 5</text>
 
               <!-- backup path -->
-              <line x1="500" y1="230" x2="546" y2="230" class="a-line" marker-end="url(#a-head)"/>
-              <rect x="552" y="178" width="152" height="104" rx="8" class="a-box"/>
-              <text x="568" y="206" class="a-t">backup &amp; DR</text>
-              <text x="568" y="228" class="a-m">encrypted MySQL</text>
-              <text x="568" y="246" class="a-m">backup pipeline</text>
-              <text x="568" y="266" class="a-d">scheduled · off-host</text>
+              <line x1="500" y1="230" x2="542" y2="230" class="a-line" marker-end="url(#a-head)"/>
+              <rect x="548" y="178" width="156" height="104" rx="8" class="a-box"/>
+              <text x="562" y="206" class="a-t">backup &amp; DR</text>
+              <text x="562" y="228" class="a-m">encrypted MySQL</text>
+              <text x="562" y="246" class="a-m">backup pipeline</text>
+              <text x="562" y="266" class="a-d">scheduled · off-host</text>
             </svg>
           </div>
           <figcaption>Sanitized topology — provisioning flow, workload split, and backup path. No hostnames, addressing, or internal detail shown.</figcaption>
