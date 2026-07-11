@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://enrie-portfolio-vercel.vercel.app/sitemap.xml

@@ -4,10 +4,19 @@ Static HTML portfolio prepared for Vercel.
 
 ## Files
 
-- `index.html` — portfolio website
-- `Enrie_John_Edem.pdf` — downloadable resume (the HTML already points to this exact filename)
-- `vercel.json` — clean URLs and basic security headers
+- `index.html` — portfolio website (single file: markup, CSS, JS)
+- `Enrie_John_Edem_Resume.pdf` — downloadable resume (the HTML points to this exact filename)
+- `certificates/` — kebab-case certificate PDFs/JPGs opened by the in-page viewer
+- `vercel.json` — clean URLs and security headers (incl. Content-Security-Policy)
+- `robots.txt` / `sitemap.xml` — crawler directives
 - `404.html` — custom not-found page
+
+## Manual follow-ups (owner actions)
+
+1. **Custom domain** — buy one (e.g. `enriejohn.dev`) and add it in Vercel. Then update the URL in: `<link rel="canonical">`, all `og:`/`twitter:` meta URLs, the JSON-LD `url`/`image`, `robots.txt`, and `sitemap.xml`.
+2. **Vercel Web Analytics** — the snippet is already in `index.html`; enable it in Vercel: Project → Analytics → Enable. Until enabled, the script 404s harmlessly.
+3. **Publish a sanitized automation repo** on GitHub (Ansible role + Terraform `bpg/proxmox` example with dummy variables), then link it from the "Proxmox Provisioning Automation" project card. The site now links your GitHub profile — an empty profile undercuts it.
+4. **Fonts (optional next step)** — currently trimmed and loaded async from Google Fonts. Self-hosting subsetted woff2 files would remove the third-party request chain entirely.
 
 ## Deploy with Vercel CLI
 
