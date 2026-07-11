@@ -6,6 +6,31 @@ $ErrorActionPreference = 'Stop'
 $wdFormatDocumentDefault = 16
 $wdExportFormatPDF = 17
 
+function Set-OfficeDocumentProperty {
+  param(
+    [Parameter(Mandatory)]$Properties,
+    [Parameter(Mandatory)][string]$Name,
+    [Parameter(Mandatory)][string]$Value
+  )
+
+  $property = $null
+  try {
+    $property = $Properties.GetType().InvokeMember(
+      'Item',
+      [System.Reflection.BindingFlags]::GetProperty,
+      $null,
+      $Properties,
+      @($Name)
+    )
+    $property.Value = $Value
+  }
+  finally {
+    if ($property -ne $null) {
+      try { [Runtime.InteropServices.Marshal]::ReleaseComObject($property) | Out-Null } catch {}
+    }
+  }
+}
+
 $outputRootResolved = [System.IO.Path]::GetFullPath($OutputRoot)
 $docxDir = Join-Path $outputRootResolved 'docx'
 $pdfDir = Join-Path $outputRootResolved 'pdf'
@@ -23,6 +48,7 @@ Copy-Item -LiteralPath $sourcePath -Destination $workingSource -Force
 
 $word = $null
 $doc = $null
+$properties = $null
 
 try {
   Write-Output 'Starting Word...'
@@ -37,12 +63,15 @@ try {
   $doc.PageSetup.BottomMargin = $word.InchesToPoints(0.45)
   $doc.PageSetup.LeftMargin = $word.InchesToPoints(0.58)
   $doc.PageSetup.RightMargin = $word.InchesToPoints(0.58)
-  $doc.BuiltInDocumentProperties.Item('Title').Value = 'Enrie John Edem - Infrastructure & Systems Engineer Resume'
-  $doc.BuiltInDocumentProperties.Item('Subject').Value = 'Linux infrastructure, Proxmox virtualization, automation, and systems engineering'
-  $doc.BuiltInDocumentProperties.Item('Author').Value = 'Enrie John Edem'
-  $doc.BuiltInDocumentProperties.Item('Keywords').Value = 'Linux, Proxmox, virtualization, infrastructure, automation, systems engineering, MySQL, Gitea'
   Write-Output 'Saving resume documents...'
   $doc.SaveAs2($docxPath, $wdFormatDocumentDefault)
+  $properties = $doc.BuiltInDocumentProperties
+  Set-OfficeDocumentProperty -Properties $properties -Name 'Title' -Value 'Enrie John Edem - Infrastructure & Systems Engineer Resume'
+  Set-OfficeDocumentProperty -Properties $properties -Name 'Subject' -Value 'Linux infrastructure, Proxmox virtualization, automation, and systems engineering'
+  Set-OfficeDocumentProperty -Properties $properties -Name 'Author' -Value 'Enrie John Edem'
+  Set-OfficeDocumentProperty -Properties $properties -Name 'Last Author' -Value 'Enrie John Edem'
+  Set-OfficeDocumentProperty -Properties $properties -Name 'Keywords' -Value 'Linux, Proxmox, virtualization, infrastructure, automation, systems engineering, MySQL, Gitea'
+  $doc.Save()
   $doc.ExportAsFixedFormat($pdfPath, $wdExportFormatPDF)
 
   Write-Output "DOCX=$docxPath"
@@ -50,6 +79,9 @@ try {
 }
 finally {
   Write-Output 'Closing Word...'
+  if ($properties -ne $null) {
+    try { [Runtime.InteropServices.Marshal]::ReleaseComObject($properties) | Out-Null } catch {}
+  }
   if ($doc -ne $null) {
     try { $doc.Close($false) } catch {}
     try { [Runtime.InteropServices.Marshal]::ReleaseComObject($doc) | Out-Null } catch {}

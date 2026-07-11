@@ -881,12 +881,12 @@
         <div class="metric" role="listitem"><div class="metric__label">experience since</div><div class="metric__val">2022</div></div>
         <div class="metric" role="listitem"><div class="metric__label">promotions earned</div><div class="metric__val">2</div></div>
         <div class="metric" role="listitem"><div class="metric__label">proxmox hosts</div><div class="metric__val">7</div></div>
-        <div class="metric" role="listitem" title="24 production LXC containers within an approximately 66-instance total estate." aria-label="LXC containers: 24 in production; approximately 66 VM and LXC instances across the total estate"><div class="metric__label">LXC containers</div><div class="metric__val">24</div></div>
-        <div class="metric" role="listitem" title="12 production virtual machines within an approximately 66-instance total estate." aria-label="Managed virtual machines: 12 in production; approximately 66 VM and LXC instances across the total estate"><div class="metric__label">managed VMs</div><div class="metric__val">12</div></div>
+        <div class="metric" role="listitem" title="24 production LXC containers" aria-label="LXC containers: 24 in production"><div class="metric__label">LXC containers</div><div class="metric__val">24</div></div>
+        <div class="metric" role="listitem" title="12 production virtual machines" aria-label="Managed virtual machines: 12 in production"><div class="metric__label">managed VMs</div><div class="metric__val">12</div></div>
         <div class="metric" role="listitem"><div class="metric__label">provisioning time</div><div class="metric__val">−93<span>%</span></div></div>
         <div class="metric" role="listitem"><div class="metric__label">staff supported</div><div class="metric__val">~700</div></div>
       </div>
-      <p class="metrics__note">VM &amp; LXC counts above are <b>production</b>; the wider estate is approximately 66 instances across production and non-production environments.</p>
+      <p class="metrics__note">VM &amp; LXC counts above are <b>production</b> figures; development and R&amp;D workloads are excluded.</p>
 
       <article class="impact-card" id="impact" aria-labelledby="impact-h">
         <p class="impact__eyebrow">// migration snapshot</p>
@@ -1116,8 +1116,8 @@
             <h3 class="proj__name">MySQL Backup &amp; Recovery</h3>
             <span class="chip">encrypted · restore-tested</span>
           </div>
-          <p class="proj__desc"><strong>Challenge:</strong> Production database backups relied on a manual process without a consistently verified recovery procedure.</p>
-          <p class="proj__how"><b>Build &amp; result</b>Automated encrypted MySQL backups and established verified restore procedures, replacing the manual workflow with a repeatable recovery process.</p>
+          <p class="proj__desc"><strong>Challenge:</strong> Production database recovery needed a more repeatable and documented workflow.</p>
+          <p class="proj__how"><b>Build &amp; result</b>Automated encrypted MySQL backups and established verified restore procedures, creating a repeatable, restore-tested recovery process.</p>
           <div class="tags"><span class="tag">MySQL</span><span class="tag">Automation</span><span class="tag">Encryption</span><span class="tag">Recovery</span></div>
         </article>
 
