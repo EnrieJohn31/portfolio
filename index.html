@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Enrie John Edem | Linux Infrastructure &amp; Automation</title>
-<meta name="description" content="Senior Technical Support Analyst specializing in Linux infrastructure, Proxmox VE, Ansible, Terraform, CI/CD, and internal platforms." />
+<title>Enrie John Edem | Infrastructure &amp; Systems Engineer — Linux, Proxmox VE, Automation</title>
+<meta name="description" content="Infrastructure &amp; systems engineer specializing in Linux, Proxmox VE, Ansible, Terraform, CI/CD, and internal platforms. Operates a 7-host production environment supporting ~700 staff." />
 <meta name="theme-color" content="#0C1116" />
 
 <link rel="canonical" href="https://enrie-portfolio-vercel.vercel.app/" />
@@ -14,17 +14,17 @@
 <meta property="og:site_name" content="Enrie John Edem" />
 <meta property="og:locale" content="en_US" />
 <meta property="og:url" content="https://enrie-portfolio-vercel.vercel.app/" />
-<meta property="og:title" content="Enrie John Edem | Linux Infrastructure &amp; Automation" />
+<meta property="og:title" content="Enrie John Edem | Infrastructure &amp; Systems Engineer" />
 <meta property="og:description" content="Linux-first infrastructure, Proxmox automation, and internal tools supporting systems used by approximately 700 staff." />
 <meta property="og:image" content="https://enrie-portfolio-vercel.vercel.app/og-image-v2.png" />
 <meta property="og:image:type" content="image/png" />
-<meta property="og:image:width" content="1729" />
-<meta property="og:image:height" content="910" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
 <meta property="og:image:alt" content="Enrie John Edem, Linux infrastructure and automation specialist." />
 
 <!-- Twitter -->
 <meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:title" content="Enrie John Edem | Linux Infrastructure &amp; Automation" />
+<meta name="twitter:title" content="Enrie John Edem | Infrastructure &amp; Systems Engineer" />
 <meta name="twitter:description" content="Proxmox VE, Linux systems, Ansible, Terraform, CI/CD, and internal platform tooling." />
 <meta name="twitter:image" content="https://enrie-portfolio-vercel.vercel.app/og-image-v2.png" />
 <meta name="twitter:image:alt" content="Enrie John Edem, Linux infrastructure and automation specialist." />
@@ -391,6 +391,10 @@
     display: block; margin-top: .45rem;
     font-family: var(--font-mono); font-size: .72rem; font-weight: 500;
     letter-spacing: .35px; color: var(--muted); text-transform: uppercase;
+  }
+  /* word-length outcome rather than a figure — sized to sit beside the copy */
+  .impact__value--text {
+    font-size: clamp(1.7rem, 4.4vw, 2.7rem); letter-spacing: -.02em; line-height: 1.05;
   }
   .impact__stats {
     display: grid; grid-template-columns: repeat(5, 1fr); gap: 1px;
@@ -759,7 +763,7 @@
   "@type": "Person",
   "name": "Enrie John Edem",
   "url": "https://enrie-portfolio-vercel.vercel.app/",
-  "jobTitle": "Senior Technical Support Analyst",
+  "jobTitle": "Infrastructure & Systems Engineer",
   "description": "Specializing in Linux infrastructure, Proxmox VE, virtualization, automation, and internal platform tooling.",
   "email": "mailto:enriejohnedem@gmail.com",
   "address": {
@@ -777,7 +781,8 @@
   },
   "knowsAbout": ["Linux administration","Proxmox VE","Virtualization","KVM","LXC","Ansible","Terraform","Infrastructure as Code","Gitea Actions","Bash","Python"],
   "sameAs": [
-    "https://www.linkedin.com/in/enrie-john-edem-6073a8223/"
+    "https://www.linkedin.com/in/enrie-john-edem-6073a8223/",
+    "https://github.com/EnrieJohn31"
   ]
 }
 </script>
@@ -794,7 +799,7 @@
       <a href="#stack">stack</a>
       <a href="#experience">experience</a>
       <a href="#projects">projects</a>
-      <a href="#credentials">development</a>
+      <a href="#credentials">education</a>
       <a href="#contact">contact</a>
     </nav>
     <button type="button" class="menu-btn" id="menuBtn" aria-label="Toggle menu" aria-expanded="false" aria-controls="nav">≡</button>
@@ -807,14 +812,14 @@
   <section class="hero" aria-label="Introduction">
     <div class="wrap hero__grid">
       <div class="hero__copy">
-        <p class="hero__role">// senior technical support analyst · infrastructure &amp; systems engineering</p>
+        <p class="hero__role">// infrastructure &amp; systems engineer · linux · proxmox ve · automation</p>
         <h1 class="hero__name">Enrie&nbsp;John <span class="em">Edem</span></h1>
         <p class="hero__tag">I operate <strong>Linux-first infrastructure for a Yazaki Japan affiliate</strong>: a 7-host Proxmox environment supporting systems used by approximately 700 staff. I automate VM and LXC provisioning and build the internal tools that run on the platform.</p>
 
         <div class="hero__proof" role="list" aria-label="Career highlights">
           <div class="proof" role="listitem"><span class="proof__value">7</span><span class="proof__label">Proxmox hosts</span></div>
           <div class="proof" role="listitem"><span class="proof__value">36</span><span class="proof__label">production workloads</span></div>
-          <div class="proof" role="listitem"><span class="proof__value">−93%</span><span class="proof__label">provisioning time</span></div>
+          <div class="proof" role="listitem"><span class="proof__value">−93%</span><span class="proof__label">provisioning time (~4h → ~17m)</span></div>
           <div class="proof" role="listitem"><span class="proof__value">~700</span><span class="proof__label">staff supported</span></div>
         </div>
 
@@ -835,7 +840,7 @@
         <span class="status"><span class="dot" aria-hidden="true"></span>available for Linux systems, infrastructure &amp; DevOps automation roles</span>
       </div>
 
-      <div class="tf" id="tf" role="img" aria-label="A Terraform-style profile showing Enrie's current role, location, infrastructure scope, and automation stack.">
+      <div class="tf" id="tf" role="img" aria-label="A Terraform-style profile: Infrastructure and Systems Engineer, titled Senior Technical Support Analyst, based in Metro Manila, Philippines, working since 2022 across 7 hosts running 24 LXC containers and 12 VMs for approximately 700 staff, automating with Ansible, Terraform, Bash, and Python.">
         <div class="tf__bar">
           <span class="tf__tux" aria-hidden="true">
             <svg viewBox="0 0 22 24" xmlns="http://www.w3.org/2000/svg">
@@ -854,8 +859,8 @@
         </div>
 <pre class="tf__pre" aria-hidden="true"><span class="line"><span class="c"># production scope, not a lab demo</span></span>
 <span class="line"><span class="kw">resource</span> <span class="s">"operator_profile"</span> <span class="s">"enrie"</span> <span class="pu">{</span></span>
-<span class="line ind"><span class="k">role</span>       <span class="pu">=</span> <span class="s">"Senior Technical Support Analyst"</span></span>
-<span class="line ind"><span class="k">specialty</span>  <span class="pu">=</span> <span class="s">"Infrastructure &amp; Systems"</span></span>
+<span class="line ind"><span class="k">role</span>       <span class="pu">=</span> <span class="s">"Infrastructure &amp; Systems Engineer"</span></span>
+<span class="line ind"><span class="k">title</span>      <span class="pu">=</span> <span class="s">"Sr. Technical Support Analyst"</span></span>
 <span class="line ind"><span class="k">location</span>   <span class="pu">=</span> <span class="s">"Metro Manila, Philippines"</span></span>
 <span class="line ind"><span class="k">experience</span> <span class="pu">=</span> <span class="s">"since 2022"</span></span>
 <span class="line"></span>
@@ -886,7 +891,7 @@
         <div class="metric" role="listitem"><div class="metric__label">proxmox hosts</div><div class="metric__val">7</div></div>
         <div class="metric" role="listitem" title="24 production LXC containers" aria-label="LXC containers: 24 in production"><div class="metric__label">LXC containers</div><div class="metric__val">24</div></div>
         <div class="metric" role="listitem" title="12 production virtual machines" aria-label="Managed virtual machines: 12 in production"><div class="metric__label">managed VMs</div><div class="metric__val">12</div></div>
-        <div class="metric" role="listitem"><div class="metric__label">provisioning time</div><div class="metric__val">−93<span>%</span></div></div>
+        <div class="metric" role="listitem" title="Build-to-ready provisioning: ~4 hours manual, ~17 minutes automated" aria-label="Provisioning time: about 17 minutes automated, reduced from about 4 hours manual"><div class="metric__label">provisioning (was ~4h)</div><div class="metric__val">~17<span>min</span></div></div>
         <div class="metric" role="listitem"><div class="metric__label">staff supported</div><div class="metric__val">~700</div></div>
       </div>
       <p class="metrics__note">VM &amp; LXC counts above are <b>production</b> figures; development and R&amp;D workloads are excluded.</p>
@@ -898,13 +903,13 @@
             <h3 class="impact__title" id="impact-h">Linux-first Proxmox transition</h3>
             <p class="impact__desc">Transitioned application hosting away from VMware licensing dependency to a 7-host Proxmox VE environment. The production estate runs 24 LXC containers and 12 Linux/Windows VMs supporting systems used by approximately 700 staff. LXC is the lightweight default for Linux web workloads; full VMs remain where stronger isolation or platform-specific dependencies make them the better fit.</p>
           </div>
-          <div class="impact__value">₱8M+<span>projected commercial licensing-cost avoidance</span></div>
+          <div class="impact__value impact__value--text">Eliminated<span>dependency on commercial virtualization licensing</span></div>
         </div>
         <div class="impact__stats" role="list" aria-label="Migration outcome highlights">
           <div class="impact__stat" role="listitem"><b>7</b><span>Proxmox hosts</span></div>
           <div class="impact__stat" role="listitem"><b>24</b><span>LXC containers</span></div>
           <div class="impact__stat" role="listitem"><b>12</b><span>Linux / Windows VMs</span></div>
-          <div class="impact__stat" role="listitem"><b>−93%</b><span>provisioning setup time</span></div>
+          <div class="impact__stat" role="listitem"><b>~17m</b><span>build-to-ready, was ~4h</span></div>
           <div class="impact__stat" role="listitem"><b>Linux</b><span>web app hosting first</span></div>
         </div>
 
@@ -927,7 +932,7 @@
               <text x="30" y="206" class="a-t">declarative IaC</text>
               <text x="30" y="228" class="a-m">Ansible playbooks</text>
               <text x="30" y="246" class="a-m">Terraform (bpg)</text>
-              <text x="30" y="266" class="a-d">−93% provisioning time</text>
+              <text x="30" y="266" class="a-d">~4h → ~17m per build</text>
               <line x1="184" y1="230" x2="194" y2="230" class="a-line" marker-end="url(#a-head)"/>
 
               <!-- Proxmox cluster -->
@@ -965,7 +970,7 @@
           <figcaption>Sanitized topology — provisioning flow, workload split, and recovery process. No hostnames, addressing, or internal configuration shown.</figcaption>
         </figure>
 
-        <p class="impact__foot">The topology is intentionally simplified. The ₱8M+ figure is a projected comparison with a commercial virtualization alternative, not audited realized savings.</p>
+        <p class="impact__foot">The topology is intentionally simplified. Operating-system and database licensing are unaffected by hypervisor choice and are excluded from this outcome.</p>
       </article>
     </div>
   </section>
@@ -1056,7 +1061,7 @@
           <p class="job__org">Philippine EDS Techno-Service Inc. — Yazaki Japan Affiliate</p>
           <ul>
             <li>Administer a <b>7-host bare-metal Proxmox VE environment</b> with 24 production LXC containers and 12 production Linux/Windows VMs supporting systems used by approximately 700 staff.</li>
-            <li>Reduced VM and LXC build-to-ready provisioning time by approximately <b>93%</b> using reusable Ansible playbooks and Terraform modules, standardizing deployments and reducing configuration drift.</li>
+            <li>Cut VM and LXC build-to-ready provisioning from <b>~4 hours manual to ~17 minutes</b> (≈93%) using reusable Ansible playbooks and Terraform modules, standardizing deployments and reducing configuration drift.</li>
             <li>Built a self-hosted <b>Gitea and Gitea Actions</b> platform on AlmaLinux to automate build, test, and deployment workflows for Laravel/Vue applications; documented onboarding in an internal runbook.</li>
             <li>Automated encrypted MySQL backups and established <b>verified restore procedures</b> for production databases, replacing a manual process.</li>
             <li>Serve as senior escalation point for server and application incidents and design workload-fit Linux/Windows placement across the platform.</li>
@@ -1098,10 +1103,10 @@
         <article class="proj">
           <div class="proj__top">
             <h3 class="proj__name">Proxmox Provisioning Automation</h3>
-            <span class="chip">~93% faster</span>
+            <span class="chip">~4h → ~17m</span>
           </div>
           <p class="proj__desc"><strong>Challenge:</strong> Manual VM and LXC builds were slow, repetitive, and susceptible to configuration drift.</p>
-          <p class="proj__how"><b>Build &amp; result</b>Created reusable Ansible playbooks and Terraform modules using the bpg/proxmox provider. Standardized build-to-ready deployments and reduced measured provisioning time by approximately 93%.</p>
+          <p class="proj__how"><b>Build &amp; result</b>Created reusable Ansible playbooks and Terraform modules using the bpg/proxmox provider. Standardized build-to-ready deployments, taking a repeatable build from roughly 4 hours of manual work to about 17 minutes end-to-end.</p>
           <div class="tags"><span class="tag">Ansible</span><span class="tag">Terraform</span><span class="tag">Proxmox VE</span><span class="tag">IaC</span></div>
         </article>
 
@@ -1142,18 +1147,18 @@
   <!-- ===================== CREDENTIALS ===================== -->
   <section id="credentials" aria-labelledby="cred-h">
     <div class="wrap reveal">
-      <p class="eyebrow"><b>// 05</b> development<span class="rule" aria-hidden="true"></span></p>
+      <p class="eyebrow"><b>// 05</b> education<span class="rule" aria-hidden="true"></span></p>
       <h2 class="h" id="cred-h">Professional development &amp; education.</h2>
       <div class="cols">
         <div>
           <p class="sub">Training &amp; recognition</p>
           <ul class="clist">
-            <li class="crow"><span class="crow__name">AWS Cloud Practitioner (CLF-C02) exam preparation<span class="badge">in progress</span></span><span class="crow__date">2026</span></li>
             <li class="crow"><span class="crow__name">Mastering Linux — Udemy<button type="button" class="cert-link" aria-label="View Mastering Linux course certificate" data-cert="certificates/linux-certificate.pdf" data-cert-type="pdf" data-cert-title="Mastering Linux — Udemy"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7Z"/><circle cx="12" cy="12" r="3"/></svg>View</button></span><span class="crow__date">Dec 2023</span></li>
             <li class="crow"><span class="crow__name">Laravel 10 — Udemy<button type="button" class="cert-link" aria-label="View Laravel 10 course certificate" data-cert="certificates/laravel-certificate.pdf" data-cert-type="pdf" data-cert-title="Laravel 10 — Udemy"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7Z"/><circle cx="12" cy="12" r="3"/></svg>View</button></span><span class="crow__date">Dec 2023</span></li>
             <li class="crow"><span class="crow__name">VMware Horizon 8: Deploy and Manage — 40 hours<button type="button" class="cert-link" aria-label="View VMware Horizon 8 course certificate" data-cert="certificates/vmware-certificate.pdf" data-cert-type="pdf" data-cert-title="VMware Horizon 8: Deploy and Manage"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7Z"/><circle cx="12" cy="12" r="3"/></svg>View</button></span><span class="crow__date">Jun 2023</span></li>
             <li class="crow"><span class="crow__name">Outstanding Contribution to ICT Services Unit<button type="button" class="cert-link" aria-label="View Outstanding Contribution to ICT Services Unit award" data-cert="certificates/campus-service-awardee.jpg" data-cert-type="image" data-cert-title="Outstanding Contribution to ICT Services Unit"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7Z"/><circle cx="12" cy="12" r="3"/></svg>View</button></span><span class="crow__date">2022</span></li>
             <li class="crow"><span class="crow__name">Proficient Student Award<button type="button" class="cert-link" aria-label="View Proficient Student Award" data-cert="certificates/proficient-student-award.jpg" data-cert-type="image" data-cert-title="Proficient Student Award"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7Z"/><circle cx="12" cy="12" r="3"/></svg>View</button></span><span class="crow__date">2022</span></li>
+            <li class="crow"><span class="crow__name">AWS Cloud Practitioner (CLF-C02)<span class="badge">in progress</span></span><span class="crow__date">2026</span></li>
           </ul>
         </div>
         <div>
@@ -1174,7 +1179,7 @@
     <div class="wrap reveal">
       <div class="contact">
         <h2 id="contact-h">Hiring for Linux infrastructure or systems automation?</h2>
-        <p>I am based in Metro Manila and open to remote or relocation opportunities. Email is the fastest way to reach me; a PDF résumé is available below.</p>
+        <p>I am based in Metro Manila (PHT, UTC+8) and open to remote or relocation opportunities, with overlap available for APAC, EMEA-morning, and US-evening schedules. Email is the fastest way to reach me; a PDF résumé is available below.</p>
         <div class="clinks">
           <a class="btn btn--primary" href="mailto:enriejohnedem@gmail.com">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 6h16v12H4z"/><path d="m4 7 8 6 8-6"/></svg>
@@ -1183,6 +1188,10 @@
           <a class="btn" href="https://www.linkedin.com/in/enrie-john-edem-6073a8223/" target="_blank" rel="noopener">
             <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6.94 5a2 2 0 1 1-4 0 2 2 0 0 1 4 0ZM3.5 8.5h3v12h-3v-12Zm6 0h2.9v1.64h.04c.4-.76 1.4-1.56 2.88-1.56 3.08 0 3.65 2.03 3.65 4.67v7.25h-3v-6.43c0-1.53-.03-3.5-2.13-3.5-2.13 0-2.46 1.66-2.46 3.39v6.54h-3v-12Z"/></svg>
             LinkedIn
+          </a>
+          <a class="btn" href="https://github.com/EnrieJohn31" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><use href="#i-github"></use></svg>
+            GitHub
           </a>
           <a class="btn" href="Enrie_John_Edem_Resume.pdf" download>
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 3v12m0 0 4-4m-4 4-4-4"/><path d="M5 21h14"/></svg>
