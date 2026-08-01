@@ -199,6 +199,13 @@
   }
   p.lead { color: var(--muted); max-width: 64ch; margin: 0 0 1rem; }
 
+  /* Long-form intros run in two columns. A single 64ch column is the right
+     measure for reading but leaves half the section empty next to a
+     full-width heading; the grid keeps the measure and fills the row.
+     Each paragraph is its own cell, so none can split across the gutter. */
+  .prose { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 2.8rem; }
+  .prose p.lead { max-width: none; margin-bottom: 1.15rem; }
+
   /* ============================================================
      HERO
      ============================================================ */
@@ -649,6 +656,7 @@
      ============================================================ */
   @media (max-width: 860px) {
     .hero__grid { grid-template-columns: 1fr; }
+    .prose { grid-template-columns: 1fr; }
     .tf { max-width: 720px; }
     .metrics { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     .impact__grid { grid-template-columns: 1fr; }
@@ -889,9 +897,12 @@
     <div class="wrap reveal">
       <p class="eyebrow"><b>// 01</b> about<span class="rule" aria-hidden="true"></span></p>
       <h2 class="h" id="about-h">Infrastructure and systems work, with development experience behind it.</h2>
-      <p class="lead">I joined Philippine EDS Techno-Service in August 2022 as an application developer and have been promoted twice since, moving from writing internal applications into running the infrastructure they sit on. Day to day that means administering the Proxmox VE environment, keeping the Linux and Windows workloads healthy, taking escalations from regional affiliates, managing the Docker workloads, and maintaining the backup and restore process for the production databases.</p>
-      <p class="lead">Some of the work I am most attached to was not assigned to me. I costed out what our virtualization licensing renewal would look like, wrote it up as a Kaizen and MUDA elimination proposal, and built a Proxmox platform alongside the existing VMware estate. Later I built five Microsoft 365 Copilot agents for our IT department on licensing we already paid for. In both cases I wrote up the problem and costed it before I built anything.</p>
-      <p class="lead">Because I built the applications myself (Laravel with Vue 3 and Inertia, Spring Boot, and older PHP and Java systems), I have a reasonable sense of what the platform underneath them actually has to carry. I would rather have a deployment I can repeat, a restore procedure someone has actually tested, and a choice between LXC and a full VM made per workload than a single pattern applied everywhere. At the moment I am working through the AWS Cloud Practitioner material and planning phased migrations off the remaining legacy Windows Server systems.</p>
+      <div class="prose">
+        <p class="lead">I joined Philippine EDS Techno-Service in August 2022 as an application developer and have been promoted twice since, moving from writing internal applications into running the infrastructure they sit on.</p>
+        <p class="lead">Day to day I administer the Proxmox VE environment, keep the Linux and Windows workloads healthy, take escalations from regional affiliates, manage the Docker workloads, and maintain the backup and restore process for the production databases.</p>
+        <p class="lead">Some of the work I am most attached to was not assigned to me. I costed our virtualization licensing renewal, wrote it up as a Kaizen and MUDA elimination proposal, and built a Proxmox platform alongside the existing VMware estate. Later I built five Microsoft 365 Copilot agents on licensing we already paid for. In both cases I wrote up the problem and costed it before building anything.</p>
+        <p class="lead">Because I built the applications myself (Laravel with Vue 3 and Inertia, Spring Boot, and older PHP and Java systems), I have a reasonable sense of what the platform underneath them has to carry. I would rather have a deployment I can repeat, a restore procedure someone has tested, and a choice between LXC and a full VM made per workload than one pattern applied everywhere. Right now I am working through the AWS Cloud Practitioner material and planning phased migrations off the remaining legacy Windows Server systems.</p>
+      </div>
 
       <div class="metrics" role="list" aria-label="Operational highlights" style="margin-top:2.2rem">
         <div class="metric" role="listitem"><div class="metric__label">years at company</div><div class="metric__val">4</div></div>
@@ -988,7 +999,10 @@
     <div class="wrap reveal">
       <p class="eyebrow"><b>// 02</b> stack<span class="rule" aria-hidden="true"></span></p>
       <h2 class="h" id="stack-h">What I run on.</h2>
-      <p class="lead" style="margin-bottom:2rem;">Everything listed here is something I use at work rather than something I have read about. The depth varies, so it is worth saying where: Proxmox VE, Linux, Ansible, Terraform, Bash, Gitea Actions, and MySQL are daily tools. VMware I administer as the incumbent estate rather than build on. Java and Spring Boot come from my earlier application work and I touch them less now. AWS is not on this list yet because I am still studying for the Cloud Practitioner exam and have not run production workloads on it.</p>
+      <div class="prose" style="margin-bottom:2rem;">
+        <p class="lead">Everything listed here is something I use at work rather than something I have read about. Proxmox VE, Linux, Ansible, Terraform, Bash, Gitea Actions, and MySQL are the daily tools, and VMware I administer as the incumbent estate rather than build on.</p>
+        <p class="lead">The depth does vary, so it is worth saying where. Java and Spring Boot come from my earlier application work and I touch them less now. AWS is not on this list because I am still studying for the Cloud Practitioner exam and have not run production workloads on it.</p>
+      </div>
       <div class="panels">
         <div class="panel">
           <div class="panel__head"><span class="pdot" aria-hidden="true"></span>virtualization &amp; infra</div>
