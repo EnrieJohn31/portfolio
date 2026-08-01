@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Enrie John Edem | Infrastructure &amp; Systems Engineer — Linux, Proxmox VE, Automation</title>
-<meta name="description" content="Infrastructure &amp; systems engineer specializing in Linux, Proxmox VE, Ansible, Terraform, CI/CD, and internal platforms. Operates a 7-host production environment supporting ~700 staff." />
+<title>Enrie John Edem | Infrastructure &amp; Platform Engineer | Linux, Proxmox VE, Ansible, Terraform</title>
+<meta name="description" content="Infrastructure &amp; platform engineer, four years running a 7-host bare-metal Proxmox VE environment for ~700 staff. Linux, Ansible, Terraform, IaC, self-hosted CI/CD, and internal platforms." />
 <meta name="theme-color" content="#0C1116" />
 
 <link rel="canonical" href="https://enrie-portfolio-vercel.vercel.app/" />
@@ -14,20 +14,20 @@
 <meta property="og:site_name" content="Enrie John Edem" />
 <meta property="og:locale" content="en_US" />
 <meta property="og:url" content="https://enrie-portfolio-vercel.vercel.app/" />
-<meta property="og:title" content="Enrie John Edem | Infrastructure &amp; Systems Engineer" />
-<meta property="og:description" content="Linux-first infrastructure, Proxmox automation, and internal tools supporting systems used by approximately 700 staff." />
-<meta property="og:image" content="https://enrie-portfolio-vercel.vercel.app/og-image-v2.png" />
+<meta property="og:title" content="Enrie John Edem | Infrastructure &amp; Platform Engineer" />
+<meta property="og:description" content="Four years running production Linux infrastructure for a Yazaki Japan affiliate: 7-host Proxmox VE, 36 production workloads, ~700 staff, provisioning cut ~93% with Ansible and Terraform." />
+<meta property="og:image" content="https://enrie-portfolio-vercel.vercel.app/og-image-v3.png" />
 <meta property="og:image:type" content="image/png" />
 <meta property="og:image:width" content="1200" />
 <meta property="og:image:height" content="630" />
-<meta property="og:image:alt" content="Enrie John Edem, Linux infrastructure and automation specialist." />
+<meta property="og:image:alt" content="Enrie John Edem, infrastructure and platform engineer working with Linux, Proxmox VE, and automation." />
 
 <!-- Twitter -->
 <meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:title" content="Enrie John Edem | Infrastructure &amp; Systems Engineer" />
-<meta name="twitter:description" content="Proxmox VE, Linux systems, Ansible, Terraform, CI/CD, and internal platform tooling." />
-<meta name="twitter:image" content="https://enrie-portfolio-vercel.vercel.app/og-image-v2.png" />
-<meta name="twitter:image:alt" content="Enrie John Edem, Linux infrastructure and automation specialist." />
+<meta name="twitter:title" content="Enrie John Edem | Infrastructure &amp; Platform Engineer" />
+<meta name="twitter:description" content="Proxmox VE, Linux administration, Ansible, Terraform, Docker, self-hosted CI/CD, and internal platform tooling." />
+<meta name="twitter:image" content="https://enrie-portfolio-vercel.vercel.app/og-image-v3.png" />
+<meta name="twitter:image:alt" content="Enrie John Edem, infrastructure and platform engineer working with Linux, Proxmox VE, and automation." />
 
 <link rel="icon" type="image/png" href="apple-touch-icon.png" />
 <link rel="apple-touch-icon" href="apple-touch-icon.png" />
@@ -43,7 +43,7 @@
 
 <style>
   /* ============================================================
-     TOKENS — operator console palette + type system
+     TOKENS: operator console palette + type system
      ============================================================ */
   :root {
     --bg:        #0C1116;
@@ -57,7 +57,7 @@
     --muted:     #93A1B4;
     --dim:       #7C8B9D;   /* WCAG AA (~5:1) for small mono labels on panels */
 
-    /* semantic status colors — used the way an operator reads a board */
+    /* semantic status colors, used the way an operator reads a board */
     --ok:        #46E0A0;   /* healthy / available / primary signal */
     --ok-dim:    rgba(70,224,160,0.12);
     --warn:      #F3B54A;   /* warning / in-progress */
@@ -128,7 +128,7 @@
   .wrap { max-width: var(--maxw); margin: 0 auto; padding-inline: clamp(1.25rem, 4vw, 2rem); }
 
   /* ============================================================
-     TOP BAR — console chrome
+     TOP BAR: console chrome
      ============================================================ */
   .topbar {
     position: sticky; top: 0; z-index: 100;
@@ -304,7 +304,7 @@
   .status .dot { flex: 0 0 auto; }
 
   /* ============================================================
-     METRIC STRIP — Grafana-style stat panels
+     METRIC STRIP: Grafana-style stat panels
      ============================================================ */
   .metrics {
     display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 1px;
@@ -341,7 +341,7 @@
     display: block; margin: .3rem 0 0; font-size: .6rem; letter-spacing: .4px;
     text-transform: uppercase; color: var(--muted);
   }
-  /* always-visible scope note — reaches touch users where hover tooltips can't */
+  /* always-visible scope note, reaches touch users where hover tooltips cannot */
   .metrics__note {
     margin: .85rem 0 0; font-family: var(--font-mono); font-size: .72rem;
     line-height: 1.55; color: var(--dim);
@@ -349,7 +349,7 @@
   .metrics__note b { color: var(--muted); font-weight: 500; }
 
   /* ============================================================
-     IMPACT CARD — public-safe business outcome snapshot
+     IMPACT CARD: public-safe business outcome snapshot
      ============================================================ */
   .impact-card {
     margin-top: 1.1rem; position: relative; overflow: hidden;
@@ -392,7 +392,7 @@
     font-family: var(--font-mono); font-size: .72rem; font-weight: 500;
     letter-spacing: .35px; color: var(--muted); text-transform: uppercase;
   }
-  /* word-length outcome rather than a figure — sized to sit beside the copy */
+  /* word-length outcome rather than a figure, sized to sit beside the copy */
   .impact__value--text {
     font-size: clamp(1.7rem, 4.4vw, 2.7rem); letter-spacing: -.02em; line-height: 1.05;
   }
@@ -415,13 +415,16 @@
   }
   .impact__foot {
     margin: .9rem 0 0; font-family: var(--font-mono); font-size: .72rem;
-    color: var(--dim);
+    line-height: 1.65; color: var(--dim);
   }
+  .impact__foot b { color: var(--muted); font-weight: 500; }
 
   /* ============================================================
-     STACK — competency panels
+     STACK: competency panels
      ============================================================ */
   .panels { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+  /* 7th panel would orphan on a 3-col row, so let it run the full width instead */
+  .panel--span { grid-column: 1 / -1; }
   .panel {
     background: var(--panel); border: 1px solid var(--line);
     border-radius: var(--radius); padding: 1.4rem 1.4rem 1.5rem;
@@ -440,7 +443,7 @@
     padding: .32rem .62rem; border: 1px solid var(--line); border-radius: 6px;
     background: var(--inset); transition: color .18s var(--ease), border-color .18s var(--ease);
   }
-  /* brand logos: inline sprite — muted monochrome at rest, true brand color on hover */
+  /* brand logos: inline sprite, muted monochrome at rest, true brand color on hover */
   .tag .logo { width: 14px; height: 14px; flex: 0 0 auto; display: inline-flex; }
   .tag .logo svg { width: 14px; height: 14px; display: block; fill: var(--muted); transition: fill .2s var(--ease); }
   .tag:hover .logo svg { fill: var(--brand, var(--ok)); }
@@ -450,7 +453,7 @@
   .tag:hover .gly { color: var(--ok); }
   .panel:hover .tag { border-color: var(--line-2); }
   /* ============================================================
-     EXPERIENCE — timeline
+     EXPERIENCE: timeline
      ============================================================ */
   .timeline { position: relative; padding-left: 1.6rem; }
   .timeline::before {
@@ -477,9 +480,13 @@
   .job li b { color: var(--text); font-weight: 600; }
 
   /* ============================================================
-     PROJECTS — dashboard tiles
+     PROJECTS: dashboard tiles
      ============================================================ */
   .grid2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; }
+  /* featured case study, runs the full width beneath the paired cards */
+  .proj--wide { grid-column: 1 / -1; }
+  .proj--wide .proj__body { display: grid; grid-template-columns: 1fr 1fr; gap: 0 1.6rem; }
+  @media (max-width: 900px) { .proj--wide .proj__body { grid-template-columns: 1fr; } }
   .proj {
     background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius);
     padding: 1.4rem 1.5rem 1.5rem; display: flex; flex-direction: column;
@@ -498,7 +505,7 @@
   .proj__link {
     margin: -.2rem 0 1rem; font-family: var(--font-mono); font-size: .76rem;
   }
-  /* provenance note — ties a headline metric to the method behind it */
+  /* provenance note, ties a headline metric to the method behind it */
   .proj__how {
     margin: -.35rem 0 1.15rem; padding: .6rem .75rem .65rem .8rem;
     font-size: .82rem; line-height: 1.55; color: var(--muted);
@@ -513,7 +520,7 @@
   .proj .tags { margin-top: auto; }
 
   /* ============================================================
-     CREDENTIALS — certs + education
+     CREDENTIALS: certs + education
      ============================================================ */
   .cols { display: grid; grid-template-columns: 1.15fr .85fr; gap: 2.4rem; }
   .sub { font-family: var(--font-mono); font-size: .76rem; color: var(--dim); letter-spacing: .4px; text-transform: uppercase; margin: 0 0 1.1rem; }
@@ -667,7 +674,7 @@
   }
 
   /* ============================================================
-     ARCHITECTURE DIAGRAM — token-driven SVG inside the impact card
+     ARCHITECTURE DIAGRAM: token-driven SVG inside the impact card
      ============================================================ */
   .arch { margin: 1.8rem 0 0; }
   .arch__scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; }
@@ -689,7 +696,7 @@
   }
 
   /* ============================================================
-     PRINT — flip the console to an ink-friendly sheet.
+     PRINT: flip the console to an ink-friendly sheet.
      The whole UI is token-driven, so re-declaring the palette
      here re-themes every component; the rest is chrome removal,
      taming fluid type, and clean page breaks.
@@ -763,8 +770,8 @@
   "@type": "Person",
   "name": "Enrie John Edem",
   "url": "https://enrie-portfolio-vercel.vercel.app/",
-  "jobTitle": "Infrastructure & Systems Engineer",
-  "description": "Specializing in Linux infrastructure, Proxmox VE, virtualization, automation, and internal platform tooling.",
+  "jobTitle": "Infrastructure & Platform Engineer",
+  "description": "Infrastructure and platform engineer with four years administering a 7-host bare-metal Proxmox VE environment supporting approximately 700 staff. Linux administration, infrastructure as code, self-hosted CI/CD, and internal platform tooling.",
   "email": "mailto:enriejohnedem@gmail.com",
   "address": {
     "@type": "PostalAddress",
@@ -779,7 +786,7 @@
     "@type": "CollegeOrUniversity",
     "name": "Bohol Island State University"
   },
-  "knowsAbout": ["Linux administration","Proxmox VE","Virtualization","KVM","LXC","Ansible","Terraform","Infrastructure as Code","Gitea Actions","Bash","Python"],
+  "knowsAbout": ["Linux administration","Proxmox VE","Virtualization","KVM","LXC","Docker","VMware","AlmaLinux","Ansible","Terraform","Infrastructure as Code","Gitea","Gitea Actions","CI/CD","MySQL","Backup and recovery","Bash","Python","Laravel","Vue.js","Spring Boot","Microsoft 365 Copilot Studio","Kaizen"],
   "sameAs": [
     "https://www.linkedin.com/in/enrie-john-edem-6073a8223/",
     "https://github.com/EnrieJohn31"
@@ -812,14 +819,14 @@
   <section class="hero" aria-label="Introduction">
     <div class="wrap hero__grid">
       <div class="hero__copy">
-        <p class="hero__role">// infrastructure &amp; systems engineer · linux · proxmox ve · automation</p>
+        <p class="hero__role">// infrastructure &amp; platform engineer · linux · proxmox ve · automation · iac</p>
         <h1 class="hero__name">Enrie&nbsp;John <span class="em">Edem</span></h1>
-        <p class="hero__tag">I operate <strong>Linux-first infrastructure for a Yazaki Japan affiliate</strong>: a 7-host Proxmox environment supporting systems used by approximately 700 staff. I automate VM and LXC provisioning and build the internal tools that run on the platform.</p>
+        <p class="hero__tag">I look after the production virtualization platform at a <strong>Yazaki Japan affiliate</strong>: seven bare-metal Proxmox VE hosts running 24 LXC containers and 12 Linux and Windows VMs for around 700 staff. Most of my work is provisioning automation, backup and recovery, incident escalation, and the internal applications that run on top of the platform. I am looking for an infrastructure or platform engineering role.</p>
 
         <div class="hero__proof" role="list" aria-label="Career highlights">
-          <div class="proof" role="listitem"><span class="proof__value">7</span><span class="proof__label">Proxmox hosts</span></div>
-          <div class="proof" role="listitem"><span class="proof__value">36</span><span class="proof__label">production workloads</span></div>
+          <div class="proof" role="listitem"><span class="proof__value">7</span><span class="proof__label">Proxmox hosts · 36 workloads</span></div>
           <div class="proof" role="listitem"><span class="proof__value">−93%</span><span class="proof__label">provisioning time (~4h → ~17m)</span></div>
+          <div class="proof" role="listitem"><span class="proof__value">₱8M+</span><span class="proof__label">licensing avoided (projected)</span></div>
           <div class="proof" role="listitem"><span class="proof__value">~700</span><span class="proof__label">staff supported</span></div>
         </div>
 
@@ -837,10 +844,10 @@
             View case studies
           </a>
         </div>
-        <span class="status"><span class="dot" aria-hidden="true"></span>available for Linux systems, infrastructure &amp; DevOps automation roles</span>
+        <span class="status"><span class="dot" aria-hidden="true"></span>open to infrastructure, platform &amp; DevOps engineering roles (remote or relocation)</span>
       </div>
 
-      <div class="tf" id="tf" role="img" aria-label="A Terraform-style profile: Infrastructure and Systems Engineer, titled Senior Technical Support Analyst, based in Metro Manila, Philippines, working since 2022 across 7 hosts running 24 LXC containers and 12 VMs for approximately 700 staff, automating with Ansible, Terraform, Bash, and Python.">
+      <div class="tf" id="tf" role="img" aria-label="A Terraform-style profile: Infrastructure and Platform Engineer, official title Senior Technical Support Analyst, based in Metro Manila, Philippines, working since 2022 across 7 hosts running 24 LXC containers and 12 VMs for approximately 700 staff, automating with Ansible, Terraform, Bash, and Python.">
         <div class="tf__bar">
           <span class="tf__tux" aria-hidden="true">
             <svg viewBox="0 0 22 24" xmlns="http://www.w3.org/2000/svg">
@@ -859,7 +866,7 @@
         </div>
 <pre class="tf__pre" aria-hidden="true"><span class="line"><span class="c"># production scope, not a lab demo</span></span>
 <span class="line"><span class="kw">resource</span> <span class="s">"operator_profile"</span> <span class="s">"enrie"</span> <span class="pu">{</span></span>
-<span class="line ind"><span class="k">role</span>       <span class="pu">=</span> <span class="s">"Infrastructure &amp; Systems Engineer"</span></span>
+<span class="line ind"><span class="k">role</span>       <span class="pu">=</span> <span class="s">"Infrastructure &amp; Platform Engineer"</span></span>
 <span class="line ind"><span class="k">title</span>      <span class="pu">=</span> <span class="s">"Sr. Technical Support Analyst"</span></span>
 <span class="line ind"><span class="k">location</span>   <span class="pu">=</span> <span class="s">"Metro Manila, Philippines"</span></span>
 <span class="line ind"><span class="k">experience</span> <span class="pu">=</span> <span class="s">"since 2022"</span></span>
@@ -881,12 +888,13 @@
   <section id="about" aria-labelledby="about-h">
     <div class="wrap reveal">
       <p class="eyebrow"><b>// 01</b> about<span class="rule" aria-hidden="true"></span></p>
-      <h2 class="h" id="about-h">Infrastructure ownership with a builder's range.</h2>
-      <p class="lead">Since 2022, I have operated production infrastructure for a Yazaki Japan affiliate, supporting systems used by approximately 700 staff. My work spans bare-metal Proxmox hosts, Linux and Windows workloads, LXC containers, provisioning automation, backups, CI/CD, and internal Laravel/Vue applications.</p>
-      <p class="lead">My advantage is being able to work across both layers: I can improve the infrastructure and build the operational tools that run on it. I favor repeatable deployments, documented recovery paths, and workload-fit decisions over one-size-fits-all architecture.</p>
+      <h2 class="h" id="about-h">Infrastructure and systems work, with development experience behind it.</h2>
+      <p class="lead">I joined Philippine EDS Techno-Service in August 2022 as an application developer and have been promoted twice since, moving from writing internal applications into running the infrastructure they sit on. Day to day that means administering the Proxmox VE environment, keeping the Linux and Windows workloads healthy, taking escalations from regional affiliates, managing the Docker workloads, and maintaining the backup and restore process for the production databases.</p>
+      <p class="lead">Some of the work I am most attached to was not assigned to me. I costed out what our virtualization licensing renewal would look like, wrote it up as a Kaizen and MUDA elimination proposal, and built a Proxmox platform alongside the existing VMware estate. Later I built five Microsoft 365 Copilot agents for our IT department on licensing we already paid for. In both cases I wrote up the problem and costed it before I built anything.</p>
+      <p class="lead">Because I built the applications myself (Laravel with Vue 3 and Inertia, Spring Boot, and older PHP and Java systems), I have a reasonable sense of what the platform underneath them actually has to carry. I would rather have a deployment I can repeat, a restore procedure someone has actually tested, and a choice between LXC and a full VM made per workload than a single pattern applied everywhere. At the moment I am working through the AWS Cloud Practitioner material and planning phased migrations off the remaining legacy Windows Server systems.</p>
 
       <div class="metrics" role="list" aria-label="Operational highlights" style="margin-top:2.2rem">
-        <div class="metric" role="listitem"><div class="metric__label">experience since</div><div class="metric__val">2022</div></div>
+        <div class="metric" role="listitem"><div class="metric__label">years at company</div><div class="metric__val">4</div></div>
         <div class="metric" role="listitem"><div class="metric__label">promotions earned</div><div class="metric__val">2</div></div>
         <div class="metric" role="listitem"><div class="metric__label">proxmox hosts</div><div class="metric__val">7</div></div>
         <div class="metric" role="listitem" title="24 production LXC containers" aria-label="LXC containers: 24 in production"><div class="metric__label">LXC containers</div><div class="metric__val">24</div></div>
@@ -897,20 +905,20 @@
       <p class="metrics__note">VM &amp; LXC counts above are <b>production</b> figures; development and R&amp;D workloads are excluded.</p>
 
       <article class="impact-card" id="impact" aria-labelledby="impact-h">
-        <p class="impact__eyebrow">// migration snapshot</p>
+        <p class="impact__eyebrow">// self-initiated · migration snapshot</p>
         <div class="impact__grid">
           <div>
-            <h3 class="impact__title" id="impact-h">Linux-first Proxmox transition</h3>
-            <p class="impact__desc">Transitioned application hosting away from VMware licensing dependency to a 7-host Proxmox VE environment. The production estate runs 24 LXC containers and 12 Linux/Windows VMs supporting systems used by approximately 700 staff. LXC is the lightweight default for Linux web workloads; full VMs remain where stronger isolation or platform-specific dependencies make them the better fit.</p>
+            <h3 class="impact__title" id="impact-h">Parallel Proxmox platform alongside the VMware estate</h3>
+            <p class="impact__desc">Nobody assigned this one. I costed the commercial virtualization licensing, wrote it up as a Kaizen and MUDA elimination proposal, and once it was approved I built a Proxmox VE platform running alongside the existing VMware estate. Production services were rebuilt natively on the new platform rather than converted from the old VMs. That took longer, but it meant nothing carried over from the previous configuration. The production estate now runs 24 LXC containers and 12 Linux and Windows VMs across 7 bare-metal hosts for around 700 staff. LXC is the default for Linux web workloads because it is lighter; full VMs stay where a workload needs stronger isolation or has platform specific dependencies.</p>
           </div>
-          <div class="impact__value impact__value--text">Eliminated<span>dependency on commercial virtualization licensing</span></div>
+          <div class="impact__value">₱8M+<span>projected licensing avoided</span></div>
         </div>
         <div class="impact__stats" role="list" aria-label="Migration outcome highlights">
           <div class="impact__stat" role="listitem"><b>7</b><span>Proxmox hosts</span></div>
           <div class="impact__stat" role="listitem"><b>24</b><span>LXC containers</span></div>
           <div class="impact__stat" role="listitem"><b>12</b><span>Linux / Windows VMs</span></div>
           <div class="impact__stat" role="listitem"><b>~17m</b><span>build-to-ready, was ~4h</span></div>
-          <div class="impact__stat" role="listitem"><b>Linux</b><span>web app hosting first</span></div>
+          <div class="impact__stat" role="listitem"><b>0</b><span>VMs converted (rebuilt natively)</span></div>
         </div>
 
         <figure class="arch">
@@ -950,7 +958,7 @@
 
               <rect x="216" y="264" width="268" height="112" rx="8" class="a-box"/>
               <circle cx="234" cy="288" r="3.5" class="a-warn"/>
-              <text x="246" y="292" class="a-t">12 × VMs — Linux + Windows</text>
+              <text x="246" y="292" class="a-t">12 × VMs (Linux + Windows)</text>
               <text x="234" y="314" class="a-m">full OS isolation where needed</text>
               <text x="234" y="332" class="a-d">platform-dependent workloads</text>
               <text x="234" y="348" class="a-d">line-of-business services</text>
@@ -967,10 +975,10 @@
               <text x="562" y="282" class="a-d">verified</text>
             </svg>
           </div>
-          <figcaption>Sanitized topology — provisioning flow, workload split, and recovery process. No hostnames, addressing, or internal configuration shown.</figcaption>
+          <figcaption>Sanitized topology: provisioning flow, workload split, and recovery process. No hostnames, addressing, or internal configuration shown.</figcaption>
         </figure>
 
-        <p class="impact__foot">The topology is intentionally simplified. Operating-system and database licensing are unaffected by hypervisor choice and are excluded from this outcome.</p>
+        <p class="impact__foot"><b>On the ₱8M figure:</b> this is <b>projected cost avoidance, not money already saved</b>. It comes out of the cost model I put together for the proposal, covering commercial virtualization licensing for this estate over the renewal horizon. Operating system and database licensing are not affected by the choice of hypervisor, so they are excluded. I am happy to walk through the model in an interview. The diagram above is simplified on purpose: no hostnames, addressing, or internal configuration.</p>
       </article>
     </div>
   </section>
@@ -980,6 +988,7 @@
     <div class="wrap reveal">
       <p class="eyebrow"><b>// 02</b> stack<span class="rule" aria-hidden="true"></span></p>
       <h2 class="h" id="stack-h">What I run on.</h2>
+      <p class="lead" style="margin-bottom:2rem;">Everything listed here is something I use at work rather than something I have read about. The depth varies, so it is worth saying where: Proxmox VE, Linux, Ansible, Terraform, Bash, Gitea Actions, and MySQL are daily tools. VMware I administer as the incumbent estate rather than build on. Java and Spring Boot come from my earlier application work and I touch them less now. AWS is not on this list yet because I am still studying for the Cloud Practitioner exam and have not run production workloads on it.</p>
       <div class="panels">
         <div class="panel">
           <div class="panel__head"><span class="pdot" aria-hidden="true"></span>virtualization &amp; infra</div>
@@ -987,6 +996,7 @@
             <span class="tag"><span class="logo" style="--brand:#E57000"><svg class="bi" aria-hidden="true"><use href="#i-proxmox"></use></svg></span>Proxmox VE</span>
             <span class="tag"><span class="gly" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="4.5" rx="1"/><rect x="3" y="9.8" width="18" height="4.5" rx="1"/><rect x="3" y="15.6" width="18" height="4.4" rx="1"/></svg></span>LXC</span>
             <span class="tag"><span class="gly" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="6" y="6" width="12" height="12" rx="1.5"/><rect x="9.5" y="9.5" width="5" height="5" rx=".5"/><path d="M9 3v2M15 3v2M9 19v2M15 19v2M3 9h2M3 15h2M19 9h2M19 15h2"/></svg></span>KVM</span>
+            <span class="tag"><span class="logo" style="--brand:#2496ED"><svg class="bi" aria-hidden="true"><use href="#i-docker"></use></svg></span>Docker</span>
             <span class="tag"><span class="logo" style="--brand:#0091DA"><svg class="bi" aria-hidden="true"><use href="#i-vmware"></use></svg></span>VMware</span>
             <span class="tag"><span class="gly" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3" y="12" width="18" height="7" rx="2"/><circle cx="7" cy="15.5" r="1"/><path d="M12 3v6m0 0 2.5-2.5M12 9 9.5 6.5"/></svg></span>Backup &amp; recovery</span>
             <span class="tag"><span class="gly" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3l7 3v5c0 4.4-3 7.4-7 8.8C8 18.4 5 15.4 5 11V6z"/><path d="M9.3 11.5l1.8 1.8 3.6-3.8"/></svg></span>Linux hardening</span>
@@ -1009,7 +1019,7 @@
             <span class="tag"><span class="logo" style="--brand:#3A8FD4"><svg class="bi" aria-hidden="true"><use href="#i-almalinux"></use></svg></span>AlmaLinux</span>
             <span class="tag"><span class="logo" style="--brand:#E95420"><svg class="bi" aria-hidden="true"><use href="#i-ubuntu"></use></svg></span>Ubuntu Server</span>
             <span class="tag"><span class="logo" style="--brand:#A81D33"><svg class="bi" aria-hidden="true"><use href="#i-debian"></use></svg></span>Debian</span>
-            <span class="tag"><span class="gly" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3.5" y="3.5" width="7.5" height="7.5" rx=".6"/><rect x="13" y="3.5" width="7.5" height="7.5" rx=".6"/><rect x="3.5" y="13" width="7.5" height="7.5" rx=".6"/><rect x="13" y="13" width="7.5" height="7.5" rx=".6"/></svg></span>Windows Server</span>
+            <span class="tag"><span class="gly" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3.5" y="3.5" width="7.5" height="7.5" rx=".6"/><rect x="13" y="3.5" width="7.5" height="7.5" rx=".6"/><rect x="3.5" y="13" width="7.5" height="7.5" rx=".6"/><rect x="13" y="13" width="7.5" height="7.5" rx=".6"/></svg></span>Windows Server 2016 / 2025</span>
           </div>
         </div>
         <div class="panel">
@@ -1021,6 +1031,7 @@
             <span class="tag"><span class="logo" style="--brand:#777BB4"><svg class="bi" aria-hidden="true"><use href="#i-php"></use></svg></span>PHP</span>
             <span class="tag"><span class="logo" style="--brand:#5FA8D3"><svg class="bi" aria-hidden="true"><use href="#i-openjdk"></use></svg></span>Java</span>
             <span class="tag"><span class="logo" style="--brand:#F7DF1E"><svg class="bi" aria-hidden="true"><use href="#i-javascript"></use></svg></span>JavaScript</span>
+            <span class="tag"><span class="gly" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 12h16"/><path d="M8.5 7.5 4 12l4.5 4.5"/><path d="m15.5 7.5 4.5 4.5-4.5 4.5"/></svg></span>REST APIs</span>
           </div>
         </div>
         <div class="panel">
@@ -1038,9 +1049,22 @@
           <div class="panel__head"><span class="pdot" aria-hidden="true"></span>practices</div>
           <div class="tags">
             <span class="tag"><span class="gly" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="6"/><path d="M20 20l-4.3-4.3"/></svg></span>Root-cause analysis</span>
+            <span class="tag"><span class="gly" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3 17l6-6 4 4 8-8"/><path d="M17 7h4v4"/></svg></span>Kaizen / MUDA elimination</span>
+            <span class="tag"><span class="gly" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.2"/><path d="M5 20a7 7 0 0 1 14 0"/><path d="M12 11.5v3"/></svg></span>RBAC</span>
             <span class="tag"><span class="gly" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3 17l6-6 4 4 8-8"/><path d="M17 7h4v4"/></svg></span>Escalation handling</span>
             <span class="tag"><span class="gly" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 3h8l4 4v14H6z"/><path d="M14 3v4h4"/><path d="M9 13h6M9 16.5h6"/></svg></span>Technical documentation</span>
-            <span class="tag"><span class="gly" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 12a8 8 0 0 1 13.7-5.7L20 8"/><path d="M20 4v4h-4"/><path d="M20 12a8 8 0 0 1-13.7 5.7L4 16"/><path d="M4 20v-4h4"/></svg></span>Full SDLC</span>
+            <span class="tag"><span class="gly" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 12a8 8 0 0 1 13.7-5.7L20 8"/><path d="M20 4v4h-4"/><path d="M20 12a8 8 0 0 1-13.7 5.7L4 16"/><path d="M4 20v-4h4"/></svg></span>UAT &amp; full SDLC</span>
+          </div>
+        </div>
+        <div class="panel panel--span">
+          <div class="panel__head"><span class="pdot" aria-hidden="true"></span>AI tooling <span style="font-family:var(--font-mono); font-size:.68rem; color:var(--dim); letter-spacing:.3px; text-transform:uppercase;">(in use since july 2026)</span></div>
+          <div class="tags">
+            <span class="tag"><span class="gly" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="4" y="6" width="16" height="12" rx="3"/><circle cx="9" cy="12" r="1.3"/><circle cx="15" cy="12" r="1.3"/><path d="M12 3v3"/></svg></span>Microsoft 365 Copilot Studio</span>
+            <span class="tag"><span class="gly" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3l2.2 5.1L20 9.5l-4 3.9.9 5.6-4.9-2.7-4.9 2.7.9-5.6-4-3.9 5.8-1.4z"/></svg></span>Agent Builder</span>
+            <span class="tag"><span class="gly" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 3h9l4 4v14H6z"/><path d="M15 3v4h4"/><path d="M9 12h7M9 15.5h7M9 8.5h3"/></svg></span>Declarative agents</span>
+            <span class="tag"><span class="gly" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H19v16H6.5A2.5 2.5 0 0 0 4 21.5z"/><path d="M8 8h7M8 11.5h7"/></svg></span>Knowledge grounding</span>
+            <span class="tag"><span class="gly" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 6h16M4 12h10M4 18h13"/><circle cx="19" cy="12" r="2"/></svg></span>Instruction design</span>
+            <span class="tag"><span class="gly" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3 12h4l2.5-7 5 14 2.5-7h4"/></svg></span>JA→EN technical analysis</span>
           </div>
         </div>
       </div>
@@ -1051,41 +1075,42 @@
   <section id="experience" aria-labelledby="exp-h">
     <div class="wrap reveal">
       <p class="eyebrow"><b>// 03</b> experience<span class="rule" aria-hidden="true"></span></p>
-      <h2 class="h" id="exp-h">Track record.</h2>
+      <h2 class="h" id="exp-h">Where I have worked.</h2>
       <p class="lead" style="margin-bottom:2rem;">Promoted twice since joining Philippine EDS Techno-Service Inc. in August 2022.</p>
       <div class="timeline">
 
         <article class="job">
-          <div class="job__meta">OCT 2025 — PRESENT</div>
-          <h3 class="job__title">Senior Technical Support Analyst <span style="color:var(--muted); font-weight:500; font-size:.82em;">(Infrastructure &amp; Systems Engineering)</span></h3>
-          <p class="job__org">Philippine EDS Techno-Service Inc. — Yazaki Japan Affiliate</p>
+          <div class="job__meta">OCT 2025 to PRESENT</div>
+          <h3 class="job__title">Infrastructure &amp; Systems Engineer <span style="color:var(--muted); font-weight:500; font-size:.82em;">(official title: Senior Technical Support Analyst)</span></h3>
+          <p class="job__org">Philippine EDS Techno-Service Inc. (Yazaki Japan Affiliate)</p>
           <ul>
-            <li>Administer a <b>7-host bare-metal Proxmox VE environment</b> with 24 production LXC containers and 12 production Linux/Windows VMs supporting systems used by approximately 700 staff.</li>
-            <li>Cut VM and LXC build-to-ready provisioning from <b>~4 hours manual to ~17 minutes</b> (≈93%) using reusable Ansible playbooks and Terraform modules, standardizing deployments and reducing configuration drift.</li>
-            <li>Built a self-hosted <b>Gitea and Gitea Actions</b> platform on AlmaLinux to automate build, test, and deployment workflows for Laravel/Vue applications; documented onboarding in an internal runbook.</li>
-            <li>Automated encrypted MySQL backups and established <b>verified restore procedures</b> for production databases, replacing a manual process.</li>
-            <li>Serve as senior escalation point for server and application incidents and design workload-fit Linux/Windows placement across the platform.</li>
+            <li>Administer a <b>7-host bare-metal Proxmox VE environment</b> with 24 production LXC containers and 12 production Linux/Windows VMs supporting approximately 700 staff; <b>senior escalation point</b> for server and application incidents across regional affiliates.</li>
+            <li>Cut VM and LXC build-to-ready provisioning from <b>~4 hours manual to ~17 minutes</b> (≈93%) using reusable Ansible playbooks and Terraform modules on the bpg/proxmox provider, standardizing deployments and eliminating configuration drift.</li>
+            <li><b>Proposed and built a parallel Proxmox VE platform</b> alongside the incumbent VMware estate, rebuilding production services natively rather than converting VMs. Costed and pitched as a Kaizen/MUDA-elimination initiative, projected to avoid over <b>₱8M</b> in commercial virtualization licensing.</li>
+            <li>Built a self-hosted <b>Gitea and Gitea Actions</b> platform on AlmaLinux to automate build, test, and deployment workflows for Laravel/Vue applications; automated encrypted MySQL backups with <b>restore-tested recovery procedures</b>.</li>
+            <li>Self-initiated and rolled out <b>five Microsoft 365 Copilot agents</b> (Jul 2026) at zero additional licensing spend.</li>
+            <li>Manage <b>Docker</b> workloads for containerized in-house applications, and sustain legacy Windows Server systems while planning phased Linux migrations.</li>
           </ul>
         </article>
 
         <article class="job">
-          <div class="job__meta">AUG 2023 — OCT 2025</div>
-          <h3 class="job__title">Junior Technical Support Analyst</h3>
-          <p class="job__org">Philippine EDS Techno-Service Inc. — Yazaki Japan Affiliate</p>
+          <div class="job__meta">AUG 2023 to OCT 2025</div>
+          <h3 class="job__title">Systems &amp; Application Engineer <span style="color:var(--muted); font-weight:500; font-size:.82em;">(official title: Junior Technical Support Analyst)</span></h3>
+          <p class="job__org">Philippine EDS Techno-Service Inc. (Yazaki Japan Affiliate)</p>
           <ul>
-            <li>Provisioned, secured, and operated Linux VMs and <b>unprivileged LXC containers</b> for internal application hosting.</li>
-            <li>Developed Laravel, Vue 3/Inertia.js, and Spring Boot applications, including a purchasing system with role-based access and multi-level approval workflows.</li>
-            <li>Automated recurring deployment and maintenance tasks with <b>Bash and Python</b>; coordinated UAT and authored technical documentation.</li>
+            <li>Provisioned, secured, and operated Linux VMs and <b>unprivileged LXC containers</b> for internal application hosting, establishing repeatable container conventions.</li>
+            <li>Built Laravel, Vue 3/Inertia.js, and Spring Boot applications, including a purchasing management system with <b>role-based access control</b> and multi-level departmental approval workflows.</li>
+            <li>Automated recurring deployment and maintenance tasks in <b>Bash and Python</b>; led UAT coordination and authored deployment, configuration, and application documentation.</li>
           </ul>
         </article>
 
         <article class="job">
-          <div class="job__meta">AUG 2022 — AUG 2023</div>
-          <h3 class="job__title">Associate Technical Support Analyst</h3>
-          <p class="job__org">Philippine EDS Techno-Service Inc. — Yazaki Japan Affiliate</p>
+          <div class="job__meta">AUG 2022 to AUG 2023</div>
+          <h3 class="job__title">Application Developer <span style="color:var(--muted); font-weight:500; font-size:.82em;">(official title: Associate Technical Support Analyst)</span></h3>
+          <p class="job__org">Philippine EDS Techno-Service Inc. (Yazaki Japan Affiliate)</p>
           <ul>
-            <li>Developed and maintained internal applications in <b>Java and PHP</b> supporting affiliate business operations.</li>
-            <li>Resolved system requests, defects, feature enhancements, application incidents, and daily IT operational issues for regional affiliates.</li>
+            <li>Developed and maintained internal <b>Java and PHP</b> applications supporting affiliate business operations.</li>
+            <li>Resolved system requests, defects, feature enhancements, and day-to-day IT operational incidents for regional affiliates.</li>
           </ul>
         </article>
 
@@ -1098,6 +1123,7 @@
     <div class="wrap reveal">
       <p class="eyebrow"><b>// 04</b> projects<span class="rule" aria-hidden="true"></span></p>
       <h2 class="h" id="proj-h">Selected work.</h2>
+      <p class="lead" style="margin-bottom:2rem;">These are systems in use at work rather than side projects. Each one notes what the problem was and what I actually did on it.</p>
       <div class="grid2">
 
         <article class="proj">
@@ -1105,9 +1131,9 @@
             <h3 class="proj__name">Proxmox Provisioning Automation</h3>
             <span class="chip">~4h → ~17m</span>
           </div>
-          <p class="proj__desc"><strong>Challenge:</strong> Manual VM and LXC builds were slow, repetitive, and susceptible to configuration drift.</p>
-          <p class="proj__how"><b>Build &amp; result</b>Created reusable Ansible playbooks and Terraform modules using the bpg/proxmox provider. Standardized build-to-ready deployments, taking a repeatable build from roughly 4 hours of manual work to about 17 minutes end-to-end.</p>
-          <div class="tags"><span class="tag">Ansible</span><span class="tag">Terraform</span><span class="tag">Proxmox VE</span><span class="tag">IaC</span></div>
+          <p class="proj__desc"><strong>Problem:</strong> Every VM and LXC was built by hand. It was slow and repetitive, and the configuration drift that came with it had already caused incidents we should not have been having.</p>
+          <p class="proj__how"><b>What I did</b>Wrote reusable Ansible playbooks and Terraform modules against the bpg/proxmox provider, so a build is defined once and applied the same way every time. A repeatable build went from roughly 4 hours of manual work to about 17 minutes. The drift stopped because the declarative definition became the only route to a new host. This is what we provision with now.</p>
+          <div class="tags"><span class="tag">Ansible</span><span class="tag">Terraform</span><span class="tag">bpg/proxmox</span><span class="tag">Proxmox VE</span><span class="tag">IaC</span></div>
         </article>
 
         <article class="proj">
@@ -1115,8 +1141,8 @@
             <h3 class="proj__name">Self-hosted Git &amp; CI/CD</h3>
             <span class="chip">build · test · deploy</span>
           </div>
-          <p class="proj__desc"><strong>Challenge:</strong> Internal applications needed a controlled source-management and deployment path without depending on an external platform.</p>
-          <p class="proj__how"><b>Build &amp; result</b>Deployed Gitea with Gitea Actions runners on AlmaLinux, automated build, test, and deployment workflows for Laravel/Vue applications, and wrote the onboarding runbook for new systems.</p>
+          <p class="proj__desc"><strong>Problem:</strong> Our internal applications needed source control and a deployment path we ran ourselves, without putting company code on an external platform.</p>
+          <p class="proj__how"><b>What I did</b>Set up Gitea with Gitea Actions runners on AlmaLinux and wrote the build, test, and deploy workflows for our Laravel and Vue applications. I also wrote the runbook for onboarding a new system onto it, since I was not going to be the only person doing this. It is the deployment path our internal apps use.</p>
           <div class="tags"><span class="tag">Gitea</span><span class="tag">Gitea Actions</span><span class="tag">AlmaLinux</span><span class="tag">CI/CD</span></div>
         </article>
 
@@ -1125,8 +1151,8 @@
             <h3 class="proj__name">MySQL Backup &amp; Recovery</h3>
             <span class="chip">encrypted · restore-tested</span>
           </div>
-          <p class="proj__desc"><strong>Challenge:</strong> Production database recovery needed a more repeatable and documented workflow.</p>
-          <p class="proj__how"><b>Build &amp; result</b>Automated encrypted MySQL backups and established verified restore procedures, creating a repeatable, restore-tested recovery process.</p>
+          <p class="proj__desc"><strong>Problem:</strong> Backing up the production databases was a manual job, and the restore side of it had never been written down or properly tested.</p>
+          <p class="proj__how"><b>What I did</b>Automated the encrypted MySQL backups and wrote restore procedures that we test, rather than assuming a backup is good because the job reported success. Recovery is now a documented procedure instead of something worked out during an incident.</p>
           <div class="tags"><span class="tag">MySQL</span><span class="tag">Automation</span><span class="tag">Encryption</span><span class="tag">Recovery</span></div>
         </article>
 
@@ -1135,9 +1161,22 @@
             <h3 class="proj__name">Purchasing Management System</h3>
             <span class="chip">RBAC · approvals</span>
           </div>
-          <p class="proj__desc"><strong>Challenge:</strong> Multiple departments needed a governed purchasing workflow with clear permissions and approval stages.</p>
-          <p class="proj__how"><b>Build &amp; result</b>Built a Laravel/Vue 3/Inertia.js application with role-based access control and multi-level approval workflows; coordinated UAT and iterative releases with departmental users.</p>
+          <p class="proj__desc"><strong>Problem:</strong> Purchasing ran across several departments with approval stages that needed to be enforced rather than tracked informally.</p>
+          <p class="proj__how"><b>What I did</b>Built the application in Laravel with Vue 3 and Inertia.js, including role-based access control and the multi-level departmental approval flow. I ran the UAT sessions with the departments that use it and released in stages based on what came back. Built during my time as Systems &amp; Application Engineer.</p>
           <div class="tags"><span class="tag">Laravel</span><span class="tag">Vue 3</span><span class="tag">Inertia.js</span><span class="tag">RBAC</span></div>
+        </article>
+
+        <article class="proj proj--wide">
+          <div class="proj__top">
+            <h3 class="proj__name">Microsoft 365 Copilot Agent Suite</h3>
+            <span class="chip">5 agents · no added licensing</span>
+          </div>
+          <p class="proj__desc"><strong>Problem:</strong> Support tickets from Japan arrive in Japanese and most of our engineers do not read Japanese. Separately, the same few kinds of analysis and write-up were being redone by hand every time they came up.</p>
+          <div class="proj__body">
+            <p class="proj__how"><b>What I did</b>Built five agents in Copilot Studio and Agent Builder, each with its own instructions and scope: Japanese ticket analysis, Proxmox and DevOps operations support, root cause analysis and countermeasure documentation, web application planning, and supervisor support. Nobody asked for these. They went live in July 2026 on licensing the company already pays for, so there was no extra cost to approve.</p>
+            <p class="proj__how"><b>How they are built</b>The ticket agent produces technical English analysis aimed at engineers rather than a plain translation. It is grounded in an archive of past tickets that have human translations, and it does a knowledge base lookup before generating rather than after. All five share an instruction preamble I factored out that tells the agent to work from evidence and ask a clarifying question instead of guessing. Reusing one preamble also kept each agent inside Copilot's instruction length limit, which was the practical constraint.</p>
+          </div>
+          <div class="tags"><span class="tag">Copilot Studio</span><span class="tag">Agent Builder</span><span class="tag">Declarative agents</span><span class="tag">Knowledge grounding</span><span class="tag">Instruction design</span><span class="tag">Kaizen</span></div>
         </article>
 
       </div>
@@ -1153,20 +1192,21 @@
         <div>
           <p class="sub">Training &amp; recognition</p>
           <ul class="clist">
-            <li class="crow"><span class="crow__name">Mastering Linux — Udemy<button type="button" class="cert-link" aria-label="View Mastering Linux course certificate" data-cert="certificates/linux-certificate.pdf" data-cert-type="pdf" data-cert-title="Mastering Linux — Udemy"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7Z"/><circle cx="12" cy="12" r="3"/></svg>View</button></span><span class="crow__date">Dec 2023</span></li>
-            <li class="crow"><span class="crow__name">Laravel 10 — Udemy<button type="button" class="cert-link" aria-label="View Laravel 10 course certificate" data-cert="certificates/laravel-certificate.pdf" data-cert-type="pdf" data-cert-title="Laravel 10 — Udemy"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7Z"/><circle cx="12" cy="12" r="3"/></svg>View</button></span><span class="crow__date">Dec 2023</span></li>
-            <li class="crow"><span class="crow__name">VMware Horizon 8: Deploy and Manage — 40 hours<button type="button" class="cert-link" aria-label="View VMware Horizon 8 course certificate" data-cert="certificates/vmware-certificate.pdf" data-cert-type="pdf" data-cert-title="VMware Horizon 8: Deploy and Manage"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7Z"/><circle cx="12" cy="12" r="3"/></svg>View</button></span><span class="crow__date">Jun 2023</span></li>
+            <li class="crow"><span class="crow__name">Mastering Linux (Udemy)<button type="button" class="cert-link" aria-label="View Mastering Linux course certificate" data-cert="certificates/linux-certificate.pdf" data-cert-type="pdf" data-cert-title="Mastering Linux (Udemy)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7Z"/><circle cx="12" cy="12" r="3"/></svg>View</button></span><span class="crow__date">Dec 2023</span></li>
+            <li class="crow"><span class="crow__name">Laravel 10 (Udemy)<button type="button" class="cert-link" aria-label="View Laravel 10 course certificate" data-cert="certificates/laravel-certificate.pdf" data-cert-type="pdf" data-cert-title="Laravel 10 (Udemy)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7Z"/><circle cx="12" cy="12" r="3"/></svg>View</button></span><span class="crow__date">Dec 2023</span></li>
+            <li class="crow"><span class="crow__name">VMware Horizon 8: Deploy and Manage (40 hours)<button type="button" class="cert-link" aria-label="View VMware Horizon 8 course certificate" data-cert="certificates/vmware-certificate.pdf" data-cert-type="pdf" data-cert-title="VMware Horizon 8: Deploy and Manage"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7Z"/><circle cx="12" cy="12" r="3"/></svg>View</button></span><span class="crow__date">Jun 2023</span></li>
             <li class="crow"><span class="crow__name">Outstanding Contribution to ICT Services Unit<button type="button" class="cert-link" aria-label="View Outstanding Contribution to ICT Services Unit award" data-cert="certificates/campus-service-awardee.jpg" data-cert-type="image" data-cert-title="Outstanding Contribution to ICT Services Unit"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7Z"/><circle cx="12" cy="12" r="3"/></svg>View</button></span><span class="crow__date">2022</span></li>
             <li class="crow"><span class="crow__name">Proficient Student Award<button type="button" class="cert-link" aria-label="View Proficient Student Award" data-cert="certificates/proficient-student-award.jpg" data-cert-type="image" data-cert-title="Proficient Student Award"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7Z"/><circle cx="12" cy="12" r="3"/></svg>View</button></span><span class="crow__date">2022</span></li>
-            <li class="crow"><span class="crow__name">AWS Cloud Practitioner (CLF-C02)<span class="badge">in progress</span></span><span class="crow__date">2026</span></li>
+            <li class="crow"><span class="crow__name">AWS Certified Cloud Practitioner (CLF-C02)<span class="badge">exam prep in progress</span></span><span class="crow__date">2026</span></li>
           </ul>
+          <p class="metrics__note">Full certificate portfolio: <a href="https://drive.google.com/drive/folders/1mtCuuIRy9rasQwtW_M7ZsSYfULydYY99" target="_blank" rel="noopener">Google&nbsp;Drive folder</a></p>
         </div>
         <div>
           <p class="sub">Education</p>
           <div class="edu">
             <h3 class="edu__deg">BS in Information Technology</h3>
-            <p class="edu__school">Bohol Island State University — Balilihan Campus, Bohol</p>
-            <p class="edu__date">2018 — 2022</p>
+            <p class="edu__school">Bohol Island State University, Balilihan Campus, Bohol</p>
+            <p class="edu__date">2018 to 2022</p>
             <p class="edu__note">Campus programmer &amp; designer · publication layout artist · Proficient Student Award.</p>
           </div>
         </div>
@@ -1178,8 +1218,8 @@
   <section id="contact" aria-labelledby="contact-h">
     <div class="wrap reveal">
       <div class="contact">
-        <h2 id="contact-h">Hiring for Linux infrastructure or systems automation?</h2>
-        <p>I am based in Metro Manila (PHT, UTC+8) and open to remote or relocation opportunities, with overlap available for APAC, EMEA-morning, and US-evening schedules. Email is the fastest way to reach me; a PDF résumé is available below.</p>
+        <h2 id="contact-h">Hiring for infrastructure, platform, or DevOps engineering?</h2>
+        <p>Happy to talk about what you are running and where I could be useful. I am based in Parañaque City, Metro Manila (UTC+8) and open to remote work or relocation. My hours line up with APAC, with early mornings workable for EMEA and evenings for US teams. Email is the quickest way to reach me. The résumé below is the same PDF I send with applications.</p>
         <div class="clinks">
           <a class="btn btn--primary" href="mailto:enriejohnedem@gmail.com">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 6h16v12H4z"/><path d="m4 7 8 6 8-6"/></svg>
@@ -1207,7 +1247,7 @@
 <footer>
   <div class="wrap foot">
     <span>© <span id="yr"></span> Enrie John Edem · Metro Manila, PH</span>
-    <span>Linux infrastructure · automation · internal platforms</span>
+    <span>Linux infrastructure · automation · IaC · internal platforms</span>
   </div>
 </footer>
 
@@ -1324,7 +1364,7 @@
 
   function onCertModalKeydown(e) {
     if (e.key === 'Escape') { closeCertModal(); return; }
-    // focus trap — aria-modal alone doesn't stop Tab escaping into the page
+    // focus trap: aria-modal alone does not stop Tab escaping into the page
     if (e.key !== 'Tab') return;
     const focusables = certModal.querySelectorAll('a[href], button:not([disabled]), iframe, [tabindex]:not([tabindex="-1"])');
     if (!focusables.length) return;
@@ -1337,7 +1377,7 @@
     btn.addEventListener('click', (e) => {
       e.stopPropagation();
       // Mobile browsers handle iframe-embedded PDFs poorly (iOS Safari renders
-      // only page 1; some Android browsers force a download) — open directly.
+      // only page 1; some Android browsers force a download), so open directly.
       const mobileView = window.matchMedia('(max-width: 820px), (pointer: coarse)').matches;
       if (btn.dataset.certType === 'pdf' && mobileView) {
         window.open(btn.dataset.cert, '_blank', 'noopener');
