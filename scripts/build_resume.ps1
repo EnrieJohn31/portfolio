@@ -66,11 +66,11 @@ try {
   Write-Output 'Saving resume documents...'
   $doc.SaveAs2($docxPath, $wdFormatDocumentDefault)
   $properties = $doc.BuiltInDocumentProperties
-  Set-OfficeDocumentProperty -Properties $properties -Name 'Title' -Value 'Enrie John Edem - Infrastructure & Systems Engineer Resume'
-  Set-OfficeDocumentProperty -Properties $properties -Name 'Subject' -Value 'Linux infrastructure, Proxmox virtualization, automation, and systems engineering'
+  Set-OfficeDocumentProperty -Properties $properties -Name 'Title' -Value 'Enrie John Edem Resume | Infrastructure & Platform Engineer'
+  Set-OfficeDocumentProperty -Properties $properties -Name 'Subject' -Value 'Linux infrastructure, Proxmox VE virtualization, infrastructure as code, automation, and platform engineering'
   Set-OfficeDocumentProperty -Properties $properties -Name 'Author' -Value 'Enrie John Edem'
   Set-OfficeDocumentProperty -Properties $properties -Name 'Last Author' -Value 'Enrie John Edem'
-  Set-OfficeDocumentProperty -Properties $properties -Name 'Keywords' -Value 'Linux, Proxmox, virtualization, infrastructure, automation, systems engineering, MySQL, Gitea'
+  Set-OfficeDocumentProperty -Properties $properties -Name 'Keywords' -Value 'Linux, Proxmox VE, LXC, KVM, Docker, virtualization, infrastructure as code, Ansible, Terraform, automation, platform engineering, CI/CD, Gitea, MySQL'
   $doc.Save()
   $doc.ExportAsFixedFormat($pdfPath, $wdExportFormatPDF)
 
